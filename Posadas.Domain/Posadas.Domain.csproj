@@ -90,6 +90,7 @@
     <Compile Include="Entities\Estado.cs" />
     <Compile Include="Entities\FotosPosada.cs" />
     <Compile Include="Entities\HabitacionesPosada.cs" />
+    <Compile Include="Entities\IdentityModels.cs" />
     <Compile Include="Entities\Posada.cs" />
     <Compile Include="Entities\TipoCaracteristica.cs" />
     <Compile Include="Entities\TipoHabitacion.cs" />
@@ -120,6 +121,10 @@
     <Compile Include="Migrations\201502022110032_NullableStado.cs" />
     <Compile Include="Migrations\201502022110032_NullableStado.Designer.cs">
       <DependentUpon>201502022110032_NullableStado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502031529517_AddUserToPosada.cs" />
+    <Compile Include="Migrations\201502031529517_AddUserToPosada.Designer.cs">
+      <DependentUpon>201502031529517_AddUserToPosada.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502022110032_NullableStado.resx">
       <DependentUpon>201502022110032_NullableStado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502031529517_AddUserToPosada.resx">
+      <DependentUpon>201502031529517_AddUserToPosada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

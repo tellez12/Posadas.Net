@@ -33,6 +33,10 @@ namespace Posadas.Domain.Entities
         [ForeignKey("EstadoId")]
         public Estado Estado { get; set; }
 
+        public string UserId { get; set; }
+
+         [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
 
     }
 }

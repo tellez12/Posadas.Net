@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Posadas.Domain.EF;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
@@ -61,6 +62,8 @@ namespace Posadas.WebUI.Controllers
         //
         // GET: /Posada/Create
 
+
+        [Authorize]
         public ActionResult Create()
         {
             //ViewBag.Habitaciones = GetHabitacionesList();
@@ -95,7 +98,7 @@ namespace Posadas.WebUI.Controllers
         // POST: /Posada/Create
 
         [HttpPost]
-
+        [Authorize] 
         public ActionResult Create(PosadasViewModel posadaViewModel)
         {
           
@@ -103,6 +106,7 @@ namespace Posadas.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
+                posada.UserId = User.Identity.GetUserId();
                 posada.Caracteristicas = new List<CaracteristicasPosadas>();
                 foreach (var caracteristicaId in posadaViewModel.CaracteristicasId)
                 {
