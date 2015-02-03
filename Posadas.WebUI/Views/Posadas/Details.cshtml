@@ -1,4 +1,4 @@
-﻿@model Posadas.Domain.Entities.Posada
+﻿@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -48,6 +48,11 @@
 
         <dd>
             @Html.DisplayFor(model => model.Aprovado)
+        </dd>
+        
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados)
         </dd>
 
         <dt>

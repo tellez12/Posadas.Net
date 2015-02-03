@@ -18,8 +18,5 @@ namespace Posadas.Domain.Entities
 
         [ForeignKey("PosadaId")]
        public Posada Posada { get; set; }
-
-       public string Valor { get; set; }
-
     }
 }

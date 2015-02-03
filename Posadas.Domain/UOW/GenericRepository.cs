@@ -51,7 +51,7 @@ namespace Posadas.Domain.UOW
 
         public virtual TEntity GetById(object id, string includeProperty)
         {
-            return Get(filter: e => (object)e.Id == id,includeProperties:includeProperty).FirstOrDefault();
+            return Get(filter: e => (object)e.Id == id, includeProperties: includeProperty).FirstOrDefault();
         }
 
         public virtual void Insert(TEntity entity)
@@ -61,12 +61,22 @@ namespace Posadas.Domain.UOW
             DbSet.Add(entity);
         }
 
+        public virtual void Insert(List<TEntity> list)
+        {
+            //SetDates(entity);
+            foreach (var entity in list)
+            {
+                DbSet.Add(entity);
+            }
+
+        }
+
         //works but not with list of Entities in properties.
         private static void SetDates(TEntity entity)
         {
             entity.FechaCreacion = DateTime.Now;
             entity.FechaModificacion = DateTime.Now;
-            var properties = entity.GetType().GetProperties().Where(p=> p.GetType().IsSubclassOf(typeof(BaseEntity)));
+            var properties = entity.GetType().GetProperties().Where(p => p.GetType().IsSubclassOf(typeof(BaseEntity)));
 
             foreach (PropertyInfo p in properties)
             {
@@ -80,6 +90,8 @@ namespace Posadas.Domain.UOW
             Delete(entityToDelete);
         }
 
+
+
         public virtual void Delete(TEntity entityToDelete)
         {
             if (Context.Entry(entityToDelete).State == EntityState.Detached)
@@ -89,21 +101,36 @@ namespace Posadas.Domain.UOW
 
             DbSet.Remove(entityToDelete);
 
+
+
+        }
+
+        public virtual void Delete(List<TEntity> list)
+        {
+            //SetDates(entity);
+            foreach (var entity in list)
+            {
+                Delete(entity);
+            }
+
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            
+
             entityToUpdate.FechaModificacion = DateTime.Now;
-          
-            
             DbSet.Attach(entityToUpdate);
             var entry = Context.Entry(entityToUpdate);
             entry.State = EntityState.Modified;
-            ////Exclude FechaCreacion from been modified.
-            //entry.Property("FechaCreacion").IsModified = false;
-            
-           
+
+        }
+        public virtual void Update(List<TEntity> list)
+        {
+            //SetDates(entity);
+            foreach (var entity in list)
+            {
+                Update(entity);
+            }
 
         }
     }

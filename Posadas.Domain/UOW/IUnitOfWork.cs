@@ -21,6 +21,8 @@ namespace Posadas.Domain.UOW
 
        GenericRepository<TipoHabitacion> TipoHabitacionRepository { get; }
 
+       GenericRepository<Estado> EstadoRepository { get; }
+
 
        void Dispose(bool disposing);
 

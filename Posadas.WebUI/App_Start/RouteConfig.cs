@@ -16,7 +16,7 @@ namespace Posadas.WebUI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Posadas", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -1,4 +1,5 @@
-﻿@model Posadas.Domain.Entities.Posada
+﻿@using Posadas.Domain.Entities
+@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -58,6 +59,14 @@
             </div>
         </div>
         
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EstadoId", Model.Estados, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         @for (var i = 0; i < Model.Habitaciones.Count; i++)
         {
             <div class="form-group ">
@@ -71,6 +80,29 @@
                 </div>
             </div>
         }
+        
+        <div class="form-group">
+            @Html.Label("Caracteristicas", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul>
+                    @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
+                    {
+                        <li>
+                            @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
+                            {
+                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
+                            }
+                        </li>
+                        @caracteristica.Nombre
+                    }
+                </ul>
+            </div>
+        </div>
+
        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

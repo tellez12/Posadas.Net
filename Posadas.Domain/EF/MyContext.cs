@@ -61,5 +61,7 @@ namespace Posadas.Domain.EF
 
        public DbSet<FotosPosada> FotosPosadas { get; set; }
 
+       public DbSet<Estado> Estados { get; set; }
+
     }
 }

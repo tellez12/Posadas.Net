@@ -77,7 +77,16 @@ namespace Posadas.Domain.UOW
             }
         }
 
+        private GenericRepository<Estado> estadoRepository;
 
+        public GenericRepository<Estado> EstadoRepository
+        {
+            get
+            {
+                return estadoRepository ??
+                       (estadoRepository = new GenericRepository<Estado>(context));
+            }
+        }
         public void Dispose(bool disposing)
         {
             if (!this.disposed)

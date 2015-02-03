@@ -1,6 +1,7 @@
-﻿@using Posadas.Domain.Entities
+﻿@using System.Activities.Statements
+@using Posadas.Domain.Entities
 @using System.Collections.Generic
-@model Posadas.Domain.Entities.Posada
+@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
 
 @{
@@ -58,18 +59,48 @@
                 </div>
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EstadoId", Model.Estados, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-            @for (var i = 0; i < Model.Habitaciones.Count; i++)
+        @for (var i = 0; i < Model.Habitaciones.Count; i++)
         {
             <div class="form-group ">
                 @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model=>model.Habitaciones[i].CantidadHabitaciones)
-                    @Html.HiddenFor(model=>model.Habitaciones[i].TipoHabitacionId)
+                    @Html.EditorFor(model => model.Habitaciones[i].CantidadHabitaciones)
+                    @Html.HiddenFor(model => model.Habitaciones[i].TipoHabitacionId)
                 </div>
             </div>
         }
-        
+
+        <div class="form-group">
+            @Html.Label("Caracteristicas", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <ul>
+                  @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
+                  {
+                      <li>
+                          @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
+                          {
+                              <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked"/>
+                          }
+                          else
+                          {
+                            <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
+                          }
+                      </li>
+                      @caracteristica.Nombre
+                  }
+                </ul>
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

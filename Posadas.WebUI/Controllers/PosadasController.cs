@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using AutoMapper;
 using Posadas.Domain.EF;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
 using Posadas.WebUI.ViewModels;
+using Posadas.WebUI.ViewModels.Posadas;
 
 namespace Posadas.WebUI.Controllers
 {
@@ -34,9 +36,9 @@ namespace Posadas.WebUI.Controllers
             ViewBag.pagingInfo = pagingInfo;
             return
                 View(
-                    unitOfWork.PosadaRepository.Get()
+                    unitOfWork.PosadaRepository.Get(includeProperties:"Estado")
                         .OrderBy(p => p.Id)
-                        .Skip((page - 1)*pagingInfo.ItemsPerPage)
+                        .Skip((page - 1) * pagingInfo.ItemsPerPage)
                         .Take(pagingInfo.ItemsPerPage));
         }
 
@@ -45,12 +47,15 @@ namespace Posadas.WebUI.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Posada posada = unitOfWork.PosadaRepository.GetById(id);
+            Posada posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones,Habitaciones.Tipo");
             if (posada == null)
             {
+                
                 return HttpNotFound();
             }
-            return View(posada);
+            var posadaViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
+            SetViewBag(posada);
+            return View(posadaViewModel);
         }
 
         //
@@ -59,31 +64,58 @@ namespace Posadas.WebUI.Controllers
         public ActionResult Create()
         {
             //ViewBag.Habitaciones = GetHabitacionesList();
-            var posada = new Posada {Habitaciones = GetHabitacionesList()};
-            return View(posada);
+            var posada = new Posada { Habitaciones = GetHabitacionesList(), Caracteristicas = new List<CaracteristicasPosadas>() };
+            SetViewBag(posada);
+            var posadasViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
+            posadasViewModel.Estados = new SelectList(unitOfWork.EstadoRepository.Get(), "Id", "Nombre");
+
+            return View(posadasViewModel);
+        }
+
+        private void SetViewBag(Posada posada)
+        {
+            List<Caracteristica> caracteristicas = unitOfWork.CaracteristicaRepository.Get().ToList();
+            List<Caracteristica> selectedCaracteristicas =
+                caracteristicas.Where(
+                    c => posada.Caracteristicas.Select(cp => cp.CaracteristicaId).Contains(c.Id)).ToList();
+            //List<Caracteristica> availableCaracteristicas =
+            //    caracteristicas.Where(c => !selectedCaracteristicas.Contains(c)).ToList();
+
+            ViewBag.caracteristicas = caracteristicas;
+            ViewBag.selectedCaracteristicas = selectedCaracteristicas;
         }
 
         private List<HabitacionesPosada> GetHabitacionesList()
         {
             var tipoHabitaciones = unitOfWork.TipoHabitacionRepository.Get();
-            return tipoHabitaciones.Select(tipoHabitacion => new HabitacionesPosada() 
-            {Tipo = tipoHabitacion, TipoHabitacionId = tipoHabitacion.Id}).ToList();
+            return tipoHabitaciones.Select(tipoHabitacion => new HabitacionesPosada() { Tipo = tipoHabitacion, TipoHabitacionId = tipoHabitacion.Id }).ToList();
         }
 
         //
         // POST: /Posada/Create
 
         [HttpPost]
-        public ActionResult Create(Posada posada)
+
+        public ActionResult Create(PosadasViewModel posadaViewModel)
         {
+          
+
             if (ModelState.IsValid)
             {
+                var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
+                posada.Caracteristicas = new List<CaracteristicasPosadas>();
+                foreach (var caracteristicaId in posadaViewModel.CaracteristicasId)
+                {
+                    posada.Caracteristicas.Add(new CaracteristicasPosadas(){CaracteristicaId = caracteristicaId});
+                }
+
+
                 unitOfWork.PosadaRepository.Insert(posada);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(posada);
+            return View(posadaViewModel);
         }
 
         //
@@ -91,29 +123,51 @@ namespace Posadas.WebUI.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+
             Posada posada = unitOfWork.PosadaRepository.GetById(id, "Habitaciones,Habitaciones.Tipo");
+        
+
+            var posadasViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
+            posadasViewModel.Estados = new SelectList(unitOfWork.EstadoRepository.Get(), "Id", "Nombre",posada.EstadoId);
+
             if (posada == null)
             {
                 return HttpNotFound();
             }
 
-            return View(posada);
+            SetViewBag(posada);
+
+            return View(posadasViewModel);
         }
 
         //
         // POST: /Posada/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Posada posada)
+        public ActionResult Edit(PosadasViewModel posadaViewModel)
         {
             if (ModelState.IsValid)
             {
+                var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
+                
+                //store in the viewModel?
+                var oldCaracteristicas =
+                    unitOfWork.CaracteristicasPosadasRepository.Get(p => p.PosadaId == posada.Id).ToList();
+                //posada.Caracteristicas = oldCaracteristicas;
+                var remove = oldCaracteristicas.Where(x=>!posadaViewModel.CaracteristicasId.Contains(x.CaracteristicaId)).ToList();
+                var addIds = posadaViewModel.CaracteristicasId.Where(x => !oldCaracteristicas.Select(c=>c.CaracteristicaId).Contains(x)).ToArray();
+
+                unitOfWork.CaracteristicasPosadasRepository.Delete(remove);
+                foreach (var caracteristicaId in addIds)
+                {
+                    unitOfWork.CaracteristicasPosadasRepository.Insert(new CaracteristicasPosadas(){PosadaId = posada.Id,CaracteristicaId = caracteristicaId});
+                }
                 unitOfWork.PosadaRepository.Update(posada);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(posada);
+            return View(posadaViewModel);
         }
 
         //
