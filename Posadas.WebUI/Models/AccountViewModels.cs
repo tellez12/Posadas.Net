@@ -77,8 +77,16 @@ namespace Posadas.WebUI.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
+
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Nombre { get; set; }
+
+        [Required]
+        public string Apellido { get; set; }
+
     }
 
     public class ResetPasswordViewModel
