@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
@@ -59,10 +61,19 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 		// POST: /Caracteristica/Create
 
 		[HttpPost]
-		public ActionResult Create(Caracteristica caracteristica)
+		public ActionResult Create(Caracteristica caracteristica, HttpPostedFileBase imageUpload)
 		{
 			if (ModelState.IsValid)
 			{
+                if (imageUpload != null)
+                {
+                    string filename = System.IO.Path.GetFileName(imageUpload.FileName);
+                    caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
+                    var root = Server.MapPath("~/Caracteristicas/");
+                    Directory.CreateDirectory(root);
+                    imageUpload.SaveAs(root + caracteristica.Imagen);
+                }
+
 				unitOfWork.CaracteristicaRepository.Insert(caracteristica);
 				unitOfWork.Save();
 				return RedirectToAction("Index");
@@ -77,11 +88,12 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 		public ActionResult Edit(int id = 0)
 		{
 			Caracteristica caracteristica = unitOfWork.CaracteristicaRepository.GetById(id);
-			ViewBag.TipoCaracteristicaId = new SelectList(unitOfWork.TipoCaracteristicaRepository.Get(), "Id", "Nombre", caracteristica.TipoCaracteristicaId);
-			if (caracteristica == null)
+				if (caracteristica == null)
 			{
 				return HttpNotFound();
 			}
+                ViewBag.TipoCaracteristicaId = new SelectList(unitOfWork.TipoCaracteristicaRepository.Get(), "Id", "Nombre", caracteristica.TipoCaracteristicaId);
+		
 
 			return View(caracteristica);
 		}
@@ -90,12 +102,22 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 		// POST: /Caracteristica/Edit/5
 
 		[HttpPost]
-		public ActionResult Edit(Caracteristica caracteristica)
+        public ActionResult Edit(Caracteristica caracteristica, HttpPostedFileBase imageUpload)
 		{
 			if (ModelState.IsValid)
 			{
-				unitOfWork.CaracteristicaRepository.Update(caracteristica);
-				unitOfWork.Save();
+                if (imageUpload != null)
+                {
+                    string filename = System.IO.Path.GetFileName(imageUpload.FileName);
+                    caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
+                    var root = Server.MapPath("~/Caracteristicas/");
+                    Directory.CreateDirectory(root);
+                    imageUpload.SaveAs(root + caracteristica.Imagen);
+                }
+
+                unitOfWork.CaracteristicaRepository.Update(caracteristica);
+                unitOfWork.Save();
+
 				return RedirectToAction("Index");
 			}
 	
@@ -123,6 +145,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 		public ActionResult DeleteConfirmed(int id)
 		{
 			unitOfWork.CaracteristicaRepository.Delete(id);
+            unitOfWork.Save();
 			return RedirectToAction("Index");
 		}
 

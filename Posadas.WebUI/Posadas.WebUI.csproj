@@ -196,6 +196,8 @@
     <Compile Include="ViewModels\Posadas\PosadasViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Caracteristicas\ImageTest 2-IMG_1227.JPG" />
+    <Content Include="Caracteristicas\imageTest 3-IMG_1374.JPG" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

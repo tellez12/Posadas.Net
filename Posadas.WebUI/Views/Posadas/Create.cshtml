@@ -88,17 +88,23 @@
                 <ul>
                   @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
                   {
-                      <li>
-                          @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
-                          {
-                              <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked"/>
-                          }
-                          else
-                          {
+                    <li>
+                        @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
+                        {
+                            <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" />
+                        }
+                        else
+                        {
                             <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
-                          }
-                      </li>
-                      @caracteristica.Nombre
+                        }
+
+                        @caracteristica.Nombre
+
+                        @if (caracteristica.Imagen != "")
+                        {
+                            <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
+                        }
+                    </li>
                   }
                 </ul>
             </div>

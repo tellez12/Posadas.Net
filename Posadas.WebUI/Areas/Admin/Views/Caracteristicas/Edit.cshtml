@@ -6,10 +6,10 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Caracteristicas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Caracteristica</h4>
         <hr />
@@ -31,6 +31,31 @@
                 @Html.ValidationMessageFor(model => model.TipoCaracteristicaId, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Imagen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="file" name="imageUpload" id="imageUpload" class="icono-Caracteristica" />
+
+            </div>
+        </div>
+
+        @if (Model.Imagen != "")
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2"> Imagen Actual</label>
+
+                <div class="col-md-10">
+
+
+                    <img src="~/Caracteristicas/@Model.Imagen" alt="@Model.Nombre" />
+                    @Html.HiddenFor(model => model.Imagen)
+
+                    @Html.HiddenFor(model => model.Imagen)
+                </div>
+            </div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

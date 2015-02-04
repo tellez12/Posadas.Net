@@ -21,6 +21,7 @@ bld/
 obj/
 bin/
 [pP]ackages
+Posadas.WebUI/Caracteristicas/
 
 # Roslyn cache directories
 *.ide/

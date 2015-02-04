@@ -15,6 +15,8 @@ namespace Posadas.Domain.Entities
         [ForeignKey("TipoCaracteristicaId")]
         public virtual TipoCaracteristica TipoCaracteristica { get; set; }
 
+        public string Imagen { get; set; }
+
         
     }
 }

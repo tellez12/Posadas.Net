@@ -130,6 +130,10 @@
     <Compile Include="Migrations\201502040858047_AddNombreApellidoUsers.Designer.cs">
       <DependentUpon>201502040858047_AddNombreApellidoUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502041731015_AddImagenCaracteristica.cs" />
+    <Compile Include="Migrations\201502041731015_AddImagenCaracteristica.Designer.cs">
+      <DependentUpon>201502041731015_AddImagenCaracteristica.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UOW\EFUnitOfWork.cs" />
@@ -172,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502040858047_AddNombreApellidoUsers.resx">
       <DependentUpon>201502040858047_AddNombreApellidoUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502041731015_AddImagenCaracteristica.resx">
+      <DependentUpon>201502041731015_AddImagenCaracteristica.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
