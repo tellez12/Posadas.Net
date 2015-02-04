@@ -6,7 +6,7 @@ using Posadas.WebUI.ViewModels;
 
 namespace Posadas.WebUI.Areas.Admin.Controllers
 {
-	public class CaracteristicasController : Controller
+	public class CaracteristicasController : BaseAdminController
 	{
 
 		private readonly IUnitOfWork unitOfWork;

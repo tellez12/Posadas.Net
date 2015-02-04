@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Posadas.Domain.EF;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
 using Posadas.WebUI.ViewModels;
 
-namespace Posadas.WebUI.Areas.Admin
+namespace Posadas.WebUI.Areas.Admin.Controllers
 {
-    public class TipoHabitacionesController : Controller
+    public class TipoHabitacionesController : BaseAdminController
     {
 
 

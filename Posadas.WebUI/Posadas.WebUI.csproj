@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CaracteristicasController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoCaracteristicasController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoHabitacionesController.cs" />
@@ -294,6 +295,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\BaseAdmin\" />
     <Folder Include="ViewModels\Shared\" />
   </ItemGroup>
   <ItemGroup>

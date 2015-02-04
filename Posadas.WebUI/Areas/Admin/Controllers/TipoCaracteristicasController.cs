@@ -13,7 +13,7 @@ using Posadas.WebUI.ViewModels;
 
 namespace Posadas.WebUI.Areas.Admin.Controllers
 {
-    public class TipoCaracteristicasController : Controller
+    public class TipoCaracteristicasController : BaseAdminController
     {
 
         private readonly IUnitOfWork unitOfWork;
