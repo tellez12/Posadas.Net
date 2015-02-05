@@ -71,19 +71,6 @@ namespace Posadas.Domain.UOW
 
         }
 
-        //works but not with list of Entities in properties.
-        private static void SetDates(TEntity entity)
-        {
-            entity.FechaCreacion = DateTime.Now;
-            entity.FechaModificacion = DateTime.Now;
-            var properties = entity.GetType().GetProperties().Where(p => p.GetType().IsSubclassOf(typeof(BaseEntity)));
-
-            foreach (PropertyInfo p in properties)
-            {
-                SetDates(p.GetValue(entity) as TEntity);
-            }
-        }
-
         public virtual void Delete(object id)
         {
             var entityToDelete = DbSet.Find(id);

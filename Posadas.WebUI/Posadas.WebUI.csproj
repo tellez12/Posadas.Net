@@ -177,6 +177,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CaracteristicasController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoCaracteristicasController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoHabitacionesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -196,8 +197,6 @@
     <Compile Include="ViewModels\Posadas\PosadasViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Caracteristicas\ImageTest 2-IMG_1227.JPG" />
-    <Content Include="Caracteristicas\imageTest 3-IMG_1374.JPG" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -229,6 +228,8 @@
     <Content Include="Areas\Admin\Views\Caracteristicas\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Caracteristicas\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Caracteristicas\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\mequedoen - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\mequedoen - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\posadas.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -298,6 +299,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\BaseAdmin\" />
+    <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="ViewModels\Shared\" />
   </ItemGroup>
   <ItemGroup>

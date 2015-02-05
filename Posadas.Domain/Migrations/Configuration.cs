@@ -1,5 +1,7 @@
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Posadas.Domain.EF;
+using Posadas.Domain.Entities;
 
 namespace Posadas.Domain.Migrations
 {
@@ -17,9 +19,36 @@ namespace Posadas.Domain.Migrations
 
         protected override void Seed(MyContext context)
         {
-            if (!context.Roles.Any(r => r.Name == "Admin"))
-                context.Roles.Add(new IdentityRole("Admin"));
-            
+            string[] adminsEmails =  { "luistellez@gmail.com", "bello.fuentes@gmail.com" };
+            const string adminRoleName = "Admin";
+
+            if (!context.Roles.Any(r => r.Name == adminRoleName))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = adminRoleName };
+
+                manager.Create(role);
+            }
+
+          
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+              
+
+            foreach (var email in adminsEmails)
+            {
+                var user = userManager.FindByEmail(email);
+                if (user != null)
+                {
+                    if (!userManager.IsInRole(user.Id, adminRoleName))
+                    {
+                        userManager.AddToRole(user.Id, adminRoleName);
+                    }
+                    
+                }
+            }
+              
         }
     }
 }
