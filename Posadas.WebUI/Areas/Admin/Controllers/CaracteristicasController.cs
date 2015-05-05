@@ -69,6 +69,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
                 {
                     string filename = System.IO.Path.GetFileName(imageUpload.FileName);
                     caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
+                    //Store this path somewhere else.
                     var root = Server.MapPath("~/Caracteristicas/");
                     Directory.CreateDirectory(root);
                     imageUpload.SaveAs(root + caracteristica.Imagen);

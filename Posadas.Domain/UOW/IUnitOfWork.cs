@@ -23,6 +23,8 @@ namespace Posadas.Domain.UOW
 
        GenericRepository<Estado> EstadoRepository { get; }
 
+       GenericRepository<FotosPosada> FotosPosadaRepository { get; }
+
 
        void Dispose(bool disposing);
 

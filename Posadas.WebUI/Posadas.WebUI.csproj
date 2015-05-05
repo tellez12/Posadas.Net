@@ -193,6 +193,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PagingInfo.cs" />
+    <Compile Include="ViewModels\Posadas\FotoPosadaViewModel.cs" />
     <Compile Include="ViewModels\Posadas\PosadasViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
