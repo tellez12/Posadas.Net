@@ -201,10 +201,15 @@ namespace Posadas.WebUI.Controllers
                 var oldCaracteristicas =
                     unitOfWork.CaracteristicasPosadasRepository.Get(p => p.PosadaId == posada.Id).ToList();
                 //posada.Caracteristicas = oldCaracteristicas;
+                if (posadaViewModel.CaracteristicasId == null)
+                {
+                    posadaViewModel.CaracteristicasId = new int[0];
+                }
                 var remove = oldCaracteristicas.Where(x => !posadaViewModel.CaracteristicasId.Contains(x.CaracteristicaId)).ToList();
+                unitOfWork.CaracteristicasPosadasRepository.Delete(remove);
                 var addIds = posadaViewModel.CaracteristicasId.Where(x => !oldCaracteristicas.Select(c => c.CaracteristicaId).Contains(x)).ToArray();
 
-                unitOfWork.CaracteristicasPosadasRepository.Delete(remove);
+             
                 foreach (var caracteristicaId in addIds)
                 {
                     unitOfWork.CaracteristicasPosadasRepository.Insert(new CaracteristicasPosadas() { PosadaId = posada.Id, CaracteristicaId = caracteristicaId });
