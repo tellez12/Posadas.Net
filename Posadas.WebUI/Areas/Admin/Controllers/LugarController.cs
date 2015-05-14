@@ -26,7 +26,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
             ViewBag.pagingInfo = pagingInfo;
             return
                 View(
-                    unitOfWork.LugarRepository.Get()
+                    unitOfWork.LugarRepository.Get(includeProperties: "Estado")
                         .OrderBy(p => p.Id)
                         .Skip((page - 1)*pagingInfo.ItemsPerPage)
                         .Take(pagingInfo.ItemsPerPage));
@@ -37,7 +37,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Lugar lugar = unitOfWork.LugarRepository.GetById(id);
+            Lugar lugar = unitOfWork.LugarRepository.GetById(id, includeProperties: "Estado");
             if (lugar == null)
             {
                 return HttpNotFound();

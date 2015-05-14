@@ -49,9 +49,9 @@ namespace Posadas.Domain.UOW
             return DbSet.Find(id);
         }
 
-        public virtual TEntity GetById(object id, string includeProperty)
+        public virtual TEntity GetById(object id, string includeProperties)
         {
-            return Get(filter: e => (object)e.Id == id, includeProperties: includeProperty).FirstOrDefault();
+            return Get(filter: e => (object)e.Id == id, includeProperties: includeProperties).FirstOrDefault();
         }
 
         public virtual void Insert(TEntity entity)

@@ -38,7 +38,7 @@ namespace Posadas.WebUI.Controllers
             ViewBag.pagingInfo = pagingInfo;
             return
                 View(
-                    unitOfWork.PosadaRepository.Get(includeProperties: "Estado")
+                    unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
                         .OrderBy(p => p.Id)
                         .Skip((page - 1) * pagingInfo.ItemsPerPage)
                         .Take(pagingInfo.ItemsPerPage));
