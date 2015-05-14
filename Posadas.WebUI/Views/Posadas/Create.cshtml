@@ -76,6 +76,8 @@
             <div class="col-md-10">
                 @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control",@disabled="disabled" })
                 @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+          
+                @Html.EditorFor(model => model.OtroLugar, new { htmlAttributes = new { @class = "form-control", @disable = "disabled" } })
             </div>
         </div>
 
@@ -137,32 +139,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-<script>
-    var uri = '/api/Lugares/';
-
-    $(document).ready(function () {
-        $('#EstadoId').on('change', function () {
-          
-            $.getJSON(uri+this.value)
-            .done(function (data) {
-                // On success, 'data' contains a list of products.
-                $('#LugarId').removeAttr("disabled").find('option').remove();
-                $('#LugarId').append('<option value="0">Seleccione un lugar</option>');
-                
-                $.each(data, function (key, item) {
-                    // Add a list item for the product.
-                    
-                    $('#LugarId').append('<option value="' +item.Id+'">'+item.Nombre+'</option>');
-                   
-                });
-                $('#LugarId').append('<option value="-1"> otro </option>');
-            });
-
-        });
-    });
-
-    
-
-   
-
-</script>
+@Scripts.Render("~/bundles/posada")
