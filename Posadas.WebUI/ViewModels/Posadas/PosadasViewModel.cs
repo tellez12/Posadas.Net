@@ -44,6 +44,8 @@ namespace Posadas.WebUI.ViewModels.Posadas
 
         public SelectList Estados { get; set; }
 
+        public SelectList Lugares { get; set; }
+
         public List<FotoPosadaViewModel> FotosModels { get; set; }
 
         public string OtroLugar { get; set; }

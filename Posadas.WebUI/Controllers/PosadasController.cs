@@ -157,7 +157,24 @@ namespace Posadas.WebUI.Controllers
             }
             var posadasViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
             posadasViewModel.Estados = new SelectList(unitOfWork.EstadoRepository.Get(), "Id", "Nombre", posada.EstadoId);
-            SetViewBag(posada);
+            if (posada.EstadoId != 0)
+            {
+                var lugares = unitOfWork.LugarRepository.Get().Where(l => l.EstadoId == posada.EstadoId).ToList();
+                lugares.Add(new Lugar(){Id=-1,Nombre="otro"});
+                
+                if (posada.LugarId == null)
+                {
+                    if (!String.IsNullOrEmpty(posada.Misc))
+                    {
+                        posada.LugarId = -1;
+
+                    }
+                    posadasViewModel.OtroLugar = posada.Misc;//Si se guarda mas informacion en Misc serializar
+                }
+              posadasViewModel.Lugares = new SelectList(lugares, "Id", "Nombre", posada.LugarId);
+            }
+          
+             SetViewBag(posada);
 
             return View(posadasViewModel);
         }
@@ -170,7 +187,15 @@ namespace Posadas.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+              
                 var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
+                if (posadaViewModel.LugarId == -1)
+                {
+                    posada.LugarId = null;
+                    posada.Misc = posadaViewModel.OtroLugar;
+
+                }
+              
 
                 //store in the viewModel?
                 var oldCaracteristicas =
