@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Data.Entity;
 using Posadas.WebUI.ViewModels.Posadas;
 using AutoMapper;
+using Posadas.WebUI.Api.Models;
 
 
 namespace Posadas.WebUI.Api
@@ -30,15 +31,16 @@ namespace Posadas.WebUI.Api
         }
 
         // GET: api/Test
-        public IEnumerable<PosadasViewModel> Get(int page=0)
+        public IEnumerable<PosadasApiViewModel> Get(int page=0)
         {
             PagingInfo pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
             var posadas =
-               
-                    unitOfWork.PosadaRepository.Get(includeProperties: "Estado")
+
+                    unitOfWork.PosadaRepository.Get(includeProperties: "Fotos,Estado")
                         .OrderBy(p => p.Id)
-                        .Skip((page - 1) * pagingInfo.ItemsPerPage)
-                        .Take(pagingInfo.ItemsPerPage).Select(p=> Mapper.Map<Posada, PosadasViewModel>(p));
+                        //.Skip((page - 1) * pagingInfo.ItemsPerPage)
+                        //.Take(pagingInfo.ItemsPerPage)
+                        .Select(p=> new PosadasApiViewModel(p));
 
             return posadas;
         }

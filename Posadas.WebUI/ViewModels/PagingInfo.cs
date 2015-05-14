@@ -7,7 +7,7 @@ namespace Posadas.WebUI.ViewModels
 {
     public class PagingInfo
     {
-        private const int DefaultItemsPerPage = 20;
+        private const int DefaultItemsPerPage = 2000;
 
         public int TotalItems { get; set; }
 

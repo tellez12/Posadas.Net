@@ -102,16 +102,24 @@ namespace Posadas.WebUI.Controllers
         [Authorize]
         public ActionResult Create(PosadasViewModel posadaViewModel)
         {
-
-
             if (ModelState.IsValid)
             {
                 var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
                 posada.UserId = User.Identity.GetUserId();
                 posada.Caracteristicas = new List<CaracteristicasPosadas>();
-                foreach (var caracteristicaId in posadaViewModel.CaracteristicasId)
+
+                if (posadaViewModel.CaracteristicasId != null)
                 {
-                    posada.Caracteristicas.Add(new CaracteristicasPosadas() { CaracteristicaId = caracteristicaId });
+                    foreach (var caracteristicaId in posadaViewModel.CaracteristicasId)
+                    {
+                        posada.Caracteristicas.Add(new CaracteristicasPosadas() { CaracteristicaId = caracteristicaId });
+                    }
+                }
+
+                if (posada.LugarId == -1)//Seleccionaron otro 
+                {
+                    posada.LugarId = null;
+                    posada.Misc = posadaViewModel.OtroLugar;
                 }
 
 
@@ -129,6 +137,7 @@ namespace Posadas.WebUI.Controllers
                         string ext = Path.GetExtension(item.FileBase.FileName);
                         var fotoPosada = new FotosPosada();
                         fotoPosada.Alt = item.Alt;
+                        fotoPosada.PosadaId = posada.Id;
                         fotoPosada.Ruta = Guid.NewGuid() + ext;
                         Directory.CreateDirectory(root);
                         item.FileBase.SaveAs(root + fotoPosada.Ruta);
@@ -136,7 +145,7 @@ namespace Posadas.WebUI.Controllers
                     }
                 }
                 unitOfWork.FotosPosadaRepository.Insert(fotosList);
-
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -160,8 +169,8 @@ namespace Posadas.WebUI.Controllers
             if (posada.EstadoId != 0)
             {
                 var lugares = unitOfWork.LugarRepository.Get().Where(l => l.EstadoId == posada.EstadoId).ToList();
-                lugares.Add(new Lugar(){Id=-1,Nombre="otro"});
-                
+                lugares.Add(new Lugar() { Id = -1, Nombre = "otro" });
+
                 if (posada.LugarId == null)
                 {
                     if (!String.IsNullOrEmpty(posada.Misc))
@@ -171,10 +180,10 @@ namespace Posadas.WebUI.Controllers
                     }
                     posadasViewModel.OtroLugar = posada.Misc;//Si se guarda mas informacion en Misc serializar
                 }
-              posadasViewModel.Lugares = new SelectList(lugares, "Id", "Nombre", posada.LugarId);
+                posadasViewModel.Lugares = new SelectList(lugares, "Id", "Nombre", posada.LugarId);
             }
-          
-             SetViewBag(posada);
+
+            SetViewBag(posada);
 
             return View(posadasViewModel);
         }
@@ -187,7 +196,7 @@ namespace Posadas.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+
                 var posada = Mapper.Map<PosadasViewModel, Posada>(posadaViewModel);
                 if (posadaViewModel.LugarId == -1)
                 {
@@ -195,7 +204,7 @@ namespace Posadas.WebUI.Controllers
                     posada.Misc = posadaViewModel.OtroLugar;
 
                 }
-              
+
 
                 //store in the viewModel?
                 var oldCaracteristicas =
@@ -209,7 +218,7 @@ namespace Posadas.WebUI.Controllers
                 unitOfWork.CaracteristicasPosadasRepository.Delete(remove);
                 var addIds = posadaViewModel.CaracteristicasId.Where(x => !oldCaracteristicas.Select(c => c.CaracteristicaId).Contains(x)).ToArray();
 
-             
+
                 foreach (var caracteristicaId in addIds)
                 {
                     unitOfWork.CaracteristicasPosadasRepository.Insert(new CaracteristicasPosadas() { PosadaId = posada.Id, CaracteristicaId = caracteristicaId });
