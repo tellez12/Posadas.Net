@@ -23,6 +23,8 @@ namespace Posadas.Domain.UOW
 
        GenericRepository<Estado> EstadoRepository { get; }
 
+       GenericRepository<Lugar> LugarRepository { get; }
+
        GenericRepository<FotosPosada> FotosPosadaRepository { get; }
 
 

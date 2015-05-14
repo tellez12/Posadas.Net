@@ -22,6 +22,9 @@ namespace Posadas.Domain.Entities
 
         public bool Aprovado { get; set; }
 
+        public string WebSite { get; set; }
+
+        public string Twitter  { get; set; }
         public virtual List<CaracteristicasPosadas> Caracteristicas { get; set; }
 
         public virtual List<HabitacionesPosada> Habitaciones { get; set; }
@@ -37,6 +40,14 @@ namespace Posadas.Domain.Entities
 
          [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+
+         public int? LugarId { get; set; }
+
+         [ForeignKey("LugarId")]
+         public Lugar Lugar { get; set; }
+
+        [StringLength(1000)]
+         public string Misc { get; set; }
 
     }
 }

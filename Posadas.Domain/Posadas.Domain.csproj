@@ -91,6 +91,7 @@
     <Compile Include="Entities\FotosPosada.cs" />
     <Compile Include="Entities\HabitacionesPosada.cs" />
     <Compile Include="Entities\IdentityModels.cs" />
+    <Compile Include="Entities\Lugar.cs" />
     <Compile Include="Entities\Posada.cs" />
     <Compile Include="Entities\TipoCaracteristica.cs" />
     <Compile Include="Entities\TipoHabitacion.cs" />
@@ -133,6 +134,10 @@
     <Compile Include="Migrations\201502041731015_AddImagenCaracteristica.cs" />
     <Compile Include="Migrations\201502041731015_AddImagenCaracteristica.Designer.cs">
       <DependentUpon>201502041731015_AddImagenCaracteristica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505140429031_AddLugarAndPosadaMisc.cs" />
+    <Compile Include="Migrations\201505140429031_AddLugarAndPosadaMisc.Designer.cs">
+      <DependentUpon>201505140429031_AddLugarAndPosadaMisc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502041731015_AddImagenCaracteristica.resx">
       <DependentUpon>201502041731015_AddImagenCaracteristica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505140429031_AddLugarAndPosadaMisc.resx">
+      <DependentUpon>201505140429031_AddLugarAndPosadaMisc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

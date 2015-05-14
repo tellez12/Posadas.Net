@@ -98,6 +98,17 @@ namespace Posadas.Domain.UOW
                        (fotosPosadaRepository = new GenericRepository<FotosPosada>(context));
             }
         }
+
+        private GenericRepository<Lugar> lugarRepository;
+
+        public GenericRepository<Lugar> LugarRepository
+        {
+            get
+            {
+                return lugarRepository ??
+                       (lugarRepository = new GenericRepository<Lugar>(context));
+            }
+        }
         public void Dispose(bool disposing)
         {
             if (!this.disposed)

@@ -64,6 +64,8 @@ namespace Posadas.Domain.EF
 
         public DbSet<Estado> Estados { get; set; }
 
+        public DbSet<Lugar> Lugares { get; set; }
+
         public static MyContext Create()
         {
             return new MyContext();
