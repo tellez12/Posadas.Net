@@ -38,6 +38,10 @@ namespace Posadas.WebUI.ViewModels.Posadas
 
         public int EstadoId { get; set; }
 
+        public Lugar Lugar { get; set; }
+
+        public int LugarId { get; set; }
+
         public SelectList Estados { get; set; }
 
         public List<FotoPosadaViewModel> FotosModels { get; set; } 

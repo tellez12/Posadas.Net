@@ -66,7 +66,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("EstadoId", Model.Estados, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("EstadoId", Model.Estados,"Selecciona un estado", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LugarId, "LugarId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control",@disabled="disabled" })
                 @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -129,3 +137,32 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    var uri = '/api/Lugares/';
+
+    $(document).ready(function () {
+        $('#EstadoId').on('change', function () {
+          
+            $.getJSON(uri+this.value)
+            .done(function (data) {
+                // On success, 'data' contains a list of products.
+                $('#LugarId').removeAttr("disabled").find('option').remove();
+                $('#LugarId').append('<option value="0">Seleccione un lugar</option>');
+                
+                $.each(data, function (key, item) {
+                    // Add a list item for the product.
+                    
+                    $('#LugarId').append('<option value="' +item.Id+'">'+item.Nombre+'</option>');
+                   
+                });
+                $('#LugarId').append('<option value="-1"> otro </option>');
+            });
+
+        });
+    });
+
+    
+
+   
+
+</script>
