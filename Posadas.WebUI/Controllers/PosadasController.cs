@@ -15,6 +15,7 @@ using Posadas.Domain.UOW;
 using Posadas.WebUI.ViewModels;
 using Posadas.WebUI.ViewModels.Posadas;
 using System.IO;
+using Posadas.WebUI.Utils;
 
 namespace Posadas.WebUI.Controllers
 {
@@ -128,7 +129,7 @@ namespace Posadas.WebUI.Controllers
                 unitOfWork.PosadaRepository.Insert(posada);
                 unitOfWork.Save();
                 //Store this path somewhere else.
-                var root = Server.MapPath("~/Posadas/" + posada.Id + "/");
+                var root = Server.MapPath(Constantes.PosadasBase + posada.Id + "/");
                 var fotosList = new List<FotosPosada>();
                 foreach (var item in posadaViewModel.FotosModels)
                 {

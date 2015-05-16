@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
 using Posadas.WebUI.ViewModels;
+using Posadas.WebUI.Utils;
 
 namespace Posadas.WebUI.Areas.Admin.Controllers
 {
@@ -70,7 +71,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
                     string filename = System.IO.Path.GetFileName(imageUpload.FileName);
                     caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
                     //Store this path somewhere else.
-                    var root = Server.MapPath("~/Caracteristicas/");
+                    var root = Server.MapPath(Constantes.CaracteristicasBase);
                     Directory.CreateDirectory(root);
                     imageUpload.SaveAs(root + caracteristica.Imagen);
                 }
@@ -111,7 +112,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
                 {
                     string filename = System.IO.Path.GetFileName(imageUpload.FileName);
                     caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
-                    var root = Server.MapPath("~/Caracteristicas/");
+                    var root = Server.MapPath(Constantes.CaracteristicasBase);
                     Directory.CreateDirectory(root);
                     imageUpload.SaveAs(root + caracteristica.Imagen);
                 }
