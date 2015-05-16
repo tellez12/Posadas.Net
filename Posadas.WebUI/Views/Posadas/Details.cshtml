@@ -1,15 +1,43 @@
 ﻿@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
+@using Posadas.WebUI.Utils;
 
 @{
     ViewBag.Title = "Details";
 }
+@*@Scripts.Render("~/bundles/posada")*@
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="~/Content/OwlCarousel/owl.carousel.css">
+
+<!-- Default Theme -->
+<link rel="stylesheet" href="~/Content/OwlCarousel/owl.theme.css">
+
+
+<!-- Include js plugin -->
+@*<script src="~/Scripts/owl.carousel.js"></script>*@
+
 
 <h2>Details</h2>
+
+
 
 <div>
     <h4>Posada</h4>
     <hr />
+
     <dl class="dl-horizontal">
+        <dt></dt>
+
+        <dd>
+            <div class="owl-carousel">
+                @foreach (var item in Model.Fotos)
+                {
+
+                    var src = String.Format("{0}/{1}/{2}", Constantes.PosadasBase, item.PosadaId, item.Ruta);
+
+                    <img alt="@item.Alt" data-src="@Url.Content(src)" class="FotosDetallePosada lazyOwl" />
+                }
+            </div>
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
@@ -49,7 +77,7 @@
         <dd>
             @Html.DisplayFor(model => model.Aprovado)
         </dd>
-        
+
 
         <dd>
             @Html.DisplayFor(model => model.Estados)
@@ -72,8 +100,30 @@
         </dd>
 
     </dl>
+
+
 </div>
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section scripts {
+    @Scripts.Render("~/bundles/owlCarousel");
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        
+            $(".owl-carousel").owlCarousel({
+                items: 1,
+                
+                center:true,
+                lazyLoad: true,
+                navigation: true,
+                navText: ["pre3v", "n3ext"]
+               
+            });
+        });
+    </script>
+}
