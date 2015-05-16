@@ -337,7 +337,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\BaseAdmin\" />
     <Folder Include="Caracteristicas\" />
-    <Folder Include="ImagenesPosadas\Uploaded\" />
+    <Folder Include="ImagenesPosadas\" />
     <Folder Include="ViewModels\Shared\" />
   </ItemGroup>
   <ItemGroup>
