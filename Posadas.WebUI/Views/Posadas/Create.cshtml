@@ -66,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("EstadoId", Model.Estados,"Selecciona un estado", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("EstadoId", Model.Estados, "Selecciona un estado", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,34 +74,37 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LugarId, "LugarId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control",@disabled="disabled" })
+                @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                 @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
-          
+
                 @Html.EditorFor(model => model.OtroLugar, new { htmlAttributes = new { @class = "form-control", @disable = "disabled" } })
             </div>
         </div>
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Habitaciones, "Tipo Habitaciones", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @for (var i = 0; i < Model.Habitaciones.Count; i++)
+                {
 
-        @for (var i = 0; i < Model.Habitaciones.Count; i++)
-        {
-            <div class="form-group ">
-                @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Habitaciones[i].CantidadHabitaciones)
-                    @Html.HiddenFor(model => model.Habitaciones[i].TipoHabitacionId)
-                </div>
+                    @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.Habitaciones[i].CantidadHabitaciones, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.HiddenFor(model => model.Habitaciones[i].TipoHabitacionId)
+                    </div>
+
+                }
             </div>
-        }
-
+        </div>
         <div class="form-group">
             @Html.Label("Caracteristicas", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <ul>
                     @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
                     {
-                        <li>
+                        <li class="col-md-3">
                             @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
                             {
-                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" />
+                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" class="form-control input-sm" />
                             }
                             else
                             {
@@ -120,12 +123,19 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.Label("Fotos", new { @class = "control-label col-md-2" })
 
-        @for (int i = 0; i < 5; i++)
-        {
-            <input type="file" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" />
-            <input type="text" name="FotosModels[@i].Alt" id="FotosModels[@i].Alt" />
-        }
+            <div class="col-md-10">
+                @for (int i = 0; i < 5; i++)
+                {
+                    <div class="col-md-6">
+                        <input type="file" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" />
+                        <input type="text" name="FotosModels[@i].Alt" id="FotosModels[@i].Alt" />
+                    </div>
+                }
+            </div>
+       </div>
 
 
         <div class="form-group">
