@@ -15,6 +15,7 @@ using Posadas.Domain.UOW;
 using Posadas.WebUI.ViewModels;
 using Posadas.WebUI.ViewModels.Posadas;
 using System.IO;
+using Posadas.Utils;
 using Posadas.WebUI.Utils;
 
 namespace Posadas.WebUI.Controllers
@@ -34,7 +35,34 @@ namespace Posadas.WebUI.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            PagingInfo pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Busqueda(string query="", int page = 0)
+        {
+
+            var pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
+            query = query.ToLowerInvariant();
+            ViewBag.pagingInfo = pagingInfo;
+            //Email.SendSimpleMessage("MyMessage");
+            return
+                View(
+                    unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
+                    .Where(p => p.Nombre.ToLowerInvariant().Contains(query) ||
+                        p.Estado.Nombre.ToLowerInvariant().Contains(query) ||
+                        p.Lugar.Nombre.ToLowerInvariant().Contains(query))
+
+                    .OrderBy(p => p.Id)
+                    .Skip((page - 1) * pagingInfo.ItemsPerPage)
+                    .Take(pagingInfo.ItemsPerPage));
+
+
+        }
+
+        public ActionResult Listado(int page = 1)
+        {
+            var pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
 
             ViewBag.pagingInfo = pagingInfo;
             return
@@ -50,7 +78,7 @@ namespace Posadas.WebUI.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Posada posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones,Habitaciones.Tipo");
+            var posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones,Habitaciones.Tipo");
             if (posada == null)
             {
 

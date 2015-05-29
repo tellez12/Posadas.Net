@@ -6,6 +6,7 @@ using Posadas.Domain.Entities;
 namespace Posadas.Domain.Migrations
 {
     using Posadas.Domain.UOW;
+    using Posadas.Utils;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -38,7 +39,7 @@ namespace Posadas.Domain.Migrations
 
 
             var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
+            var userManager = new UserManager<ApplicationUser>(userStore) {EmailService = Email.MyEmailService};
 
 
             foreach (var email in adminsEmails)

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posadas.WebUI", "Posadas.WebUI\Posadas.WebUI.csproj", "{B43D8F2D-6DFB-471C-A94F-147B49F4768F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posadas.Domain", "Posadas.Domain\Posadas.Domain.csproj", "{15191C97-FEDA-4A95-B7BA-D7666B94CCD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posadas.Utils", "Posadas.Utils\Posadas.Utils.csproj", "{798328E0-DF5A-4E4B-BB59-D87D650CA10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{15191C97-FEDA-4A95-B7BA-D7666B94CCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15191C97-FEDA-4A95-B7BA-D7666B94CCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15191C97-FEDA-4A95-B7BA-D7666B94CCD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{798328E0-DF5A-4E4B-BB59-D87D650CA10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{798328E0-DF5A-4E4B-BB59-D87D650CA10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{798328E0-DF5A-4E4B-BB59-D87D650CA10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{798328E0-DF5A-4E4B-BB59-D87D650CA10E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

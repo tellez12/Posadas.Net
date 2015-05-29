@@ -330,6 +330,9 @@
     <Content Include="Areas\Admin\Views\Estados\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Estados\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Estados\Index.cshtml" />
+    <Content Include="Views\Posadas\Listado.cshtml" />
+    <Content Include="Views\Posadas\Busqueda.cshtml" />
+    <Content Include="Views\Shared\SearchBarPartial.cshtml" />
     <None Include="Web.Backload.Default.config" />
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +352,10 @@
       <Project>{15191c97-feda-4a95-b7ba-d7666b94ccd8}</Project>
       <Name>Posadas.Domain</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Posadas.Utils\Posadas.Utils.csproj">
+      <Project>{798328e0-df5a-4e4b-bb59-d87d650ca10e}</Project>
+      <Name>Posadas.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

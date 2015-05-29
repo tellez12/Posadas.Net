@@ -189,6 +189,12 @@
       <DependentUpon>201505140429031_AddLugarAndPosadaMisc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Posadas.Utils\Posadas.Utils.csproj">
+      <Project>{798328e0-df5a-4e4b-bb59-d87d650ca10e}</Project>
+      <Name>Posadas.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
