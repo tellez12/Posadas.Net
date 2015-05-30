@@ -5,6 +5,7 @@ using RestSharp;
 
 namespace Posadas.Utils
 {
+    //TODO: need to take this credentials out.
     public static class Email
     {
         public static void SendSimpleMessage(String message)
@@ -22,9 +23,7 @@ namespace Posadas.Utils
             request.AddParameter("from", "Mailgun Sandbox <test@icloud.com>");
             request.AddParameter("to", "Luis Tellez <mequedoen@gmail.com>");
             request.AddParameter("subject", "Hello Luis Tellez");
-            request.AddParameter("text",
-                "Congratulations Luis Tellez, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free. " +
-                message);
+            request.AddParameter("text", message);
             request.Method = Method.POST;
             client.Execute(request);
 
@@ -34,7 +33,12 @@ namespace Posadas.Utils
 
         public static IIdentityMessageService MyEmailService
         {
-            get { return _emailService ?? (_emailService = new MailgunMessageService("domain", "apiKey", "")); }
+            get
+            {
+               //TODO:Need to take credentials out of here. 
+               return _emailService ?? (_emailService = new MailgunMessageService("sandboxa869759601c340e5be04ec0e82203c1b.mailgun.org", "key-eb4ca3f00570390e1efec891c658786f", "luistellez@gmail.com"));
+              
+            }
         }
     }
 }
