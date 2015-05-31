@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Mailgun.AspNet.Identity;
 using Microsoft.AspNet.Identity;
 using RestSharp;
@@ -35,9 +36,19 @@ namespace Posadas.Utils
         {
             get
             {
-               //TODO:Need to take credentials out of here. 
-               return _emailService ?? (_emailService = new MailgunMessageService("sandboxa869759601c340e5be04ec0e82203c1b.mailgun.org", "key-eb4ca3f00570390e1efec891c658786f", "luistellez@gmail.com"));
-              
+                ////TODO:Need to take credentials out of here. 
+                //return _emailService ?? (_emailService = new MailgunMessageService
+                //    ("sandboxa869759601c340e5be04ec0e82203c1b.mailgun.org", 
+                //    "key-eb4ca3f00570390e1efec891c658786f", 
+                //    "luistellez@gmail.com"));
+
+                return _emailService ?? (_emailService = new MailgunMessageService
+                   (ConfigurationManager.AppSettings["emailKey"],
+                    ConfigurationManager.AppSettings["emailDomain"],
+                    ConfigurationManager.AppSettings["emailAdmin"]));
+
+                ;
+
             }
         }
     }

@@ -332,7 +332,7 @@
     <Content Include="Areas\Admin\Views\Estados\Index.cshtml" />
     <Content Include="Views\Posadas\Listado.cshtml" />
     <Content Include="Views\Posadas\Busqueda.cshtml" />
-    <Content Include="Views\Shared\SearchBarPartial.cshtml" />
+    <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
     <Content Include="Views\Shared\ConfirmarEmail.cshtml" />
     <None Include="Web.Backload.Default.config" />
   </ItemGroup>
