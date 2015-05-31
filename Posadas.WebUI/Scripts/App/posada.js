@@ -22,7 +22,27 @@ $(document).ready(function () {
             $("#OtroLugar").hide();
         }
     });
+
+    $(".fileInput").change(function () {
+      
+        readURL(this);
+    });
 });
+
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        var imgId = $(input).data("imgid");
+        reader.onload = function (e) {
+            
+            $("#"+imgId).show().attr("src", e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 function updateLugar(estadoId) {
     $.getJSON(uri + estadoId)

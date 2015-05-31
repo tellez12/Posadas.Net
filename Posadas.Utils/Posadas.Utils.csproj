@@ -30,10 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mailgun_csharp">
+    <Reference Include="mailgun_csharp, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\mailgun_csharp.0.3.0.0\lib\net45\mailgun_csharp.dll</HintPath>
     </Reference>
-    <Reference Include="mailgun_csharp.AspNet.Identity">
+    <Reference Include="mailgun_csharp.AspNet.Identity, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\mailgun_csharp.AspNet.Identity.0.4.0\lib\net45\mailgun_csharp.AspNet.Identity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">

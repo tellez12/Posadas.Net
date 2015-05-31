@@ -129,8 +129,12 @@
             <div class="col-md-10">
                 @for (int i = 0; i < 5; i++)
                 {
-                    <div class="col-md-6">
-                        <input type="file" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" />
+                    <div class="col-md-6 divFotos" >
+
+                        <input type="file" class="fileInput" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" data-imgid="imgPreview-@i" />
+                        <img id="imgPreview-@i" src="#" alt="your image" class="imgPreview"/>
+                        @Html.Label("Descripcion",htmlAttributes:new {@class= "control-label col-md-2"})
+                    
                         <input type="text" name="FotosModels[@i].Alt" id="FotosModels[@i].Alt" />
                     </div>
                 }
