@@ -5,145 +5,181 @@
 
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Agregar Posadas";
 }
 
-<h2>Create</h2>
+<h2>Agregar Posadas</h2>
 
 @using (Html.BeginForm("Create", "Posadas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Posada</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Informacion General</h3>
             </div>
-        </div>
+            <div class="panel-body">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contacto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contacto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contacto, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="form-group">
-                @Html.LabelFor(model => model.Aprovado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Aprovado)
-                        @Html.ValidationMessageFor(model => model.Aprovado, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Contacto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Contacto, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Contacto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Aprovado, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Aprovado)
+                                @Html.ValidationMessageFor(model => model.Aprovado, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("EstadoId", Model.Estados, "Selecciona un estado", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LugarId, "LugarId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.OtroLugar, new { htmlAttributes = new { @class = "form-control", @disable = "disabled" } })
                     </div>
                 </div>
             </div>
-        }
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("EstadoId", Model.Estados, "Selecciona un estado", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
-            </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LugarId, "LugarId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LugarId", Enumerable.Empty<SelectListItem>(), "Seleccione un lugar", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
-
-                @Html.EditorFor(model => model.OtroLugar, new { htmlAttributes = new { @class = "form-control", @disable = "disabled" } })
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Habitaciones</h3>
             </div>
-        </div>
-        <div class="form-group ">
-            @Html.LabelFor(model => model.Habitaciones, "Tipo Habitaciones", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @for (var i = 0; i < Model.Habitaciones.Count; i++)
-                {
+            <div class="panel-body">
 
-                    @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-2">
-                        @Html.EditorFor(model => model.Habitaciones[i].CantidadHabitaciones, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.HiddenFor(model => model.Habitaciones[i].TipoHabitacionId)
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.Habitaciones, "Tipo Habitaciones", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @for (var i = 0; i < Model.Habitaciones.Count; i++)
+                        {
+
+                            @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-2">
+                                @Html.EditorFor(model => model.Habitaciones[i].CantidadHabitaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.HiddenFor(model => model.Habitaciones[i].TipoHabitacionId)
+                            </div>
+
+                        }
                     </div>
-
-                }
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Caracteristicas", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <ul>
-                    @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
-                    {
-                        <li class="col-md-3">
-                            @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
-                            {
-                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" class="form-control input-sm" />
-                            }
-                            else
-                            {
-                                <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
-                            }
-
-                            @caracteristica.Nombre
-
-                            @if (caracteristica.Imagen != "")
-                            {
-                                <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
-                            }
-                        </li>
-                    }
-                </ul>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.Label("Fotos", new { @class = "control-label col-md-2" })
 
-            <div class="col-md-10">
-                @for (int i = 0; i < 5; i++)
-                {
-                    <div class="col-md-6 divFotos" >
 
-                        <input type="file" class="fileInput" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" data-imgid="imgPreview-@i" />
-                        @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <input type="text" name="FotosModels[@i].Alt" id="FotosModels[@i].Alt" class="form-control" />
-                        <div class="">
-                            <img id="imgPreview-@i" src="#" alt="your image" class="imgPreview" />
-                        </div>
-                                 
-                    
-                        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Caracteristicas</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <ul>
+                            @foreach (Caracteristica caracteristica in @ViewBag.Caracteristicas)
+                            {
+                                <li class="col-md-3">
+                                    @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
+                                    {
+                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" class="form-control input-sm" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
+                                    }
+
+                                    @caracteristica.Nombre
+
+                                    @if (caracteristica.Imagen != "")
+                                    {
+                                        <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
+                                    }
+                                </li>
+                            }
+                        </ul>
                     </div>
-                }
+                </div>
             </div>
-       </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Fotos</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.Label("Fotos", new { @class = "control-label col-md-2" })
+
+                    <div class="col-md-10">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <div class="col-md-6 divFotos">
+
+                                <input type="file" class="fileInput" name="FotosModels[@i].FileBase" id="FotosModels[@i].FileBase" data-imgid="imgPreview-@i" />
+                                @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <input type="text" name="FotosModels[@i].Alt" id="FotosModels[@i].Alt" class="form-control" />
+                                <div class="">
+                                    <img id="imgPreview-@i" src="#" alt="your image" class="imgPreview" />
+                                </div>
+
+
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
         <div class="form-group">

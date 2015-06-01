@@ -1,25 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Security.Cryptography.X509Certificates;
 using Mailgun.AspNet.Identity;
+using Mailgun.Messages;
 using Microsoft.AspNet.Identity;
 using RestSharp;
 
 namespace Posadas.Utils
 {
-    //TODO: need to take this credentials out.
     public static class Email
     {
+        public static string ApiKey = ConfigurationManager.AppSettings["emailKey"];
+        public static string Domain = ConfigurationManager.AppSettings["emailDomain"];
+        public static string From = ConfigurationManager.AppSettings["emailAdmin"];
+
         public static void SendSimpleMessage(String message)
         {
             var client = new RestClient
             {
                 BaseUrl = new Uri("https://api.mailgun.net/v3"),
                 Authenticator = new HttpBasicAuthenticator("api",
-                    "key-eb4ca3f00570390e1efec891c658786f")
+                    ApiKey)
             };
             var request = new RestRequest();
             request.AddParameter("domain",
-                "sandboxa869759601c340e5be04ec0e82203c1b.mailgun.org", ParameterType.UrlSegment);
+                Domain, ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Mailgun Sandbox <test@icloud.com>");
             request.AddParameter("to", "Luis Tellez <mequedoen@gmail.com>");
@@ -36,20 +43,44 @@ namespace Posadas.Utils
         {
             get
             {
-                ////TODO:Need to take credentials out of here. 
-                //return _emailService ?? (_emailService = new MailgunMessageService
-                //    ("sandboxa869759601c340e5be04ec0e82203c1b.mailgun.org", 
-                //    "key-eb4ca3f00570390e1efec891c658786f", 
-                //    "luistellez@gmail.com"));
+                //if (_emailService == null)
+                //{
+                //    _emailService = new MailgunMessageService(new MailgunMessageServiceOptions()
+                //   {
+                //       ApiKey = ApiKey,
+                //       Domain = Domain,
 
-                return _emailService ?? (_emailService = new MailgunMessageService
-                   (ConfigurationManager.AppSettings["emailKey"],
-                    ConfigurationManager.AppSettings["emailDomain"],
-                    ConfigurationManager.AppSettings["emailAdmin"]));
+                //       UseHtmlBody = true,
+                //       DefaultFrom = new Recipient() { Email = From, DisplayName = "Admin" },
+                //       DefaultHeaders = new Dictionary<string, string> { { "X-Some-Custom-Header", "Custom" } },
+                //       DefaultTags = new Collection<string> { "AuthorizationEmails" }
+                //   });
 
-                ;
+                //}
 
+                if (_emailService == null)
+                {
+                    _emailService = new MailgunMessageService(Domain, ApiKey, From);
+
+
+                }
+                return _emailService;
+               
             }
         }
+
+        public static bool SendMessageWithService(string message)
+        {
+            message = message + 2;
+           MyEmailService.Send(new IdentityMessage()
+           {
+               Body = message,
+               Destination = "luistellez@gmail.com",
+               Subject = message
+           });
+            return true;
+        }
+
+
     }
 }

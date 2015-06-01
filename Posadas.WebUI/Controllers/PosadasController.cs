@@ -46,16 +46,16 @@ namespace Posadas.WebUI.Controllers
             query = query.ToLowerInvariant();
             ViewBag.pagingInfo = pagingInfo;
             //Email.SendSimpleMessage("MyMessage");
-            return
-                View(
-                    unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
-                    .Where(p => p.Nombre.ToLowerInvariant().Contains(query) ||
-                        p.Estado.Nombre.ToLowerInvariant().Contains(query) ||
-                        p.Lugar.Nombre.ToLowerInvariant().Contains(query))
+            var posadas = unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
+                .Where(p => p.Nombre.ToLowerInvariant().Contains(query) ||
+                            p.Estado.Nombre.ToLowerInvariant().Contains(query) ||
+                            p.Lugar.Nombre.ToLowerInvariant().Contains(query))
 
-                    .OrderBy(p => p.Id)
-                    .Skip((page - 1) * pagingInfo.ItemsPerPage)
-                    .Take(pagingInfo.ItemsPerPage));
+                .OrderBy(p => p.Id)
+                .Skip((page - 1)*pagingInfo.ItemsPerPage)
+                .Take(pagingInfo.ItemsPerPage);
+            return
+                View(posadas);
 
 
         }
