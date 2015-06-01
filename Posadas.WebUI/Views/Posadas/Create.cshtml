@@ -1,6 +1,7 @@
 ﻿@using System.Activities.Statements
 @using Posadas.Domain.Entities
 @using System.Collections.Generic
+@using Posadas.WebUI.Utils
 @model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
 
@@ -161,7 +162,7 @@
                     @Html.Label("Fotos", new { @class = "control-label col-md-2" })
 
                     <div class="col-md-10">
-                        @for (int i = 0; i < 5; i++)
+                        @for (int i = 0; i < Constantes.NumeroDeFotos; i++)
                         {
                             <div class="col-md-6 divFotos">
 

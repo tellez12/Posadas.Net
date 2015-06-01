@@ -24,5 +24,10 @@ namespace Posadas.WebUI.Utils
 
         #endregion
 
+
+        public static int NumeroDeFotos
+        {
+            get { return 5; }
+        }
     }
 }
