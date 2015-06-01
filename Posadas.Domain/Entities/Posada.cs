@@ -18,9 +18,9 @@ namespace Posadas.Domain.Entities
 
         public string Email { get; set; }
 
-        public string Contacto { get; set; }
+        public string Telefono { get; set; }
 
-        public bool Aprovado { get; set; }
+        public bool Aprobado { get; set; }
 
         public string WebSite { get; set; }
 

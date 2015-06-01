@@ -42,27 +42,27 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Contacto, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Contacto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contacto, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
             </div>
         </div>
         @if (User.IsInRole("Admin"))
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Aprovado, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.LabelFor(model => model.Aprobado, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.Aprovado)
-                        @Html.ValidationMessageFor(model => model.Aprovado, "", new {@class = "text-danger"})
+                        @Html.EditorFor(model => model.Aprobado)
+                        @Html.ValidationMessageFor(model => model.Aprobado, "", new {@class = "text-danger"})
                     </div>
                 </div>
             </div>
         }
         else
         {
-            @Html.HiddenFor(model => model.Aprovado)
+            @Html.HiddenFor(model => model.Aprobado)
         }
         <div class="form-group">
             @Html.LabelFor(model => model.EstadoId, "EstadoId", htmlAttributes: new { @class = "control-label col-md-2" })
