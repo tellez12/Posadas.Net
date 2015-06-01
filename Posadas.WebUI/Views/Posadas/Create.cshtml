@@ -131,18 +131,18 @@
                                 <li class="col-md-3">
                                     @if (@ViewBag.selectedCaracteristicas.Contains(caracteristica))
                                     {
-                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" class="form-control input-sm" />
+                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" checked="checked" class="form-control input-sm"/>
                                     }
                                     else
                                     {
-                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id" />
+                                        <input type="checkbox" name="caracteristicasId[]" value="@caracteristica.Id"/>
                                     }
 
                                     @caracteristica.Nombre
 
                                     @if (caracteristica.Imagen != "")
                                     {
-                                        <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
+                                        <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica"/>
                                     }
                                 </li>
                             }
@@ -151,6 +151,7 @@
                 </div>
             </div>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Fotos</h3>

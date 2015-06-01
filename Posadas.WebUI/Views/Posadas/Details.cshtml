@@ -1,4 +1,6 @@
 ﻿@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
+
+@using Posadas.Domain.Entities
 @using Posadas.WebUI.Utils;
 
 @{
@@ -100,6 +102,66 @@
         </dd>
 
     </dl>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Caracteristicas</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <ul>
+                        @foreach (CaracteristicasPosadas caracteristica in @Model.Caracteristicas)
+                        {
+                            <li class="col-md-3">
+
+                                @caracteristica.Caracteristica.Nombre
+
+                                @if (caracteristica.Caracteristica.Imagen != "")
+                                {
+                                    <img src="~/Caracteristicas/@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica"/>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Habitaciones</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group ">
+                @Html.LabelFor(model => model.Habitaciones, "Tipo Habitaciones", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @for (var i = 0; i < Model.Habitaciones.Count; i++)
+                    {
+                        <div class="col-md-2">
+
+
+                            @Html.Label(Model.Habitaciones[i].Tipo.Nombre, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.DisplayFor(model => model.Habitaciones[i].CantidadHabitaciones, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 </div>
