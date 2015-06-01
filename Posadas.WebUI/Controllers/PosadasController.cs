@@ -285,5 +285,21 @@ namespace Posadas.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Comparacion(string ids)
+        {
+            var idshash = ids.Split(',');
+            var posadas = unitOfWork.PosadaRepository.Get(includeProperties: "Caracteristicas,Caracteristicas.Caracteristica").Where(p => idshash.Contains(p.Id.ToString()));
+            IEnumerable<Caracteristica> listaCaracteristica = new List<Caracteristica>();
+            foreach (var posada in posadas)
+            {
+                listaCaracteristica = listaCaracteristica.Union(posada.Caracteristicas.Select(c => c.Caracteristica));
+
+            }
+
+            ViewBag.ListaCaracteristicas = listaCaracteristica;
+
+            return View(posadas);
+        }
+
     }
 }

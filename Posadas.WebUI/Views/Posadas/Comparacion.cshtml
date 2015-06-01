@@ -1,0 +1,51 @@
+﻿@using System.Collections.Generic;
+@using Posadas.Domain.Entities;
+@model IEnumerable<Posadas.Domain.Entities.Posada>
+
+@{
+    ViewBag.Title = "Comparacion";
+}
+
+<h2>Comparacion</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th class="text-center">#</th>
+        @foreach (var posada in Model)
+        {
+            <th class="text-center">@posada.Nombre </th>
+        }
+
+    </tr>
+    </thead>
+    <tbody>
+        
+
+    @foreach (Caracteristica caracteristica in ViewBag.ListaCaracteristicas)
+    {
+    <tr>
+        <td class="text-center">
+            <img src="~/Caracteristicas/@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
+        </td>
+        
+            @foreach (var posada in Model)
+            {
+                <td class="text-center">
+                    @if (posada.Caracteristicas.Select(c => c.CaracteristicaId).Contains(caracteristica.Id))
+                    {
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    }
+                </td>
+            }
+
+
+             
+
+    </tr>
+    }
+        
+
+    </tbody>
+
+</table>

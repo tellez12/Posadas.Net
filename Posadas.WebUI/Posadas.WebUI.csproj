@@ -335,6 +335,7 @@
     <Content Include="Views\Posadas\Busqueda.cshtml" />
     <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
     <Content Include="Views\Shared\ConfirmarEmail.cshtml" />
+    <Content Include="Views\Posadas\Comparacion.cshtml" />
     <None Include="Web.Backload.Default.config" />
   </ItemGroup>
   <ItemGroup>
