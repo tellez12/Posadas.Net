@@ -36,10 +36,19 @@
 
                     var src = String.Format("{0}/{1}/{2}", Constantes.PosadasBase, item.PosadaId, item.Ruta);
 
-                    <img alt="@item.Alt" data-src="@Url.Content(src)" class="FotosDetallePosada lazyOwl" />
+                    <img alt="@item.Alt" data-src="@Url.Content(src)" class="FotosDetallePosada lazyOwl"/>
                 }
             </div>
         </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Visitas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visitas)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>

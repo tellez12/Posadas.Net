@@ -80,6 +80,7 @@ namespace Posadas.WebUI.Controllers
         public ActionResult Details(int id = 0)
         {
             var posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones,Habitaciones.Tipo");
+            SetVisitedCookie(posada);
             if (posada == null)
             {
 
@@ -300,6 +301,34 @@ namespace Posadas.WebUI.Controllers
             ViewBag.ListaCaracteristicas = listaCaracteristica;
 
             return View(posadas);
+        }
+
+        public void SetVisitedCookie(Posada posada)
+        {
+            var posadasVisitadas = ControllerContext.HttpContext.Request.Cookies.Get("posadasVisitadas");
+            if (posadasVisitadas != null && posadasVisitadas["PosadasVisitadas"]!=null)
+            {
+                var ids = posadasVisitadas["PosadasVisitadas"].Split(',').ToList();
+                if (ids.Contains(posada.Id.ToString())) return;//
+
+                ids.Add(posada.Id.ToString());
+                posadasVisitadas["PosadasVisitadas"] = String.Join(",",ids);
+           
+            }
+            else
+            {
+                posadasVisitadas = new HttpCookie("PosadasVisitadas");
+                posadasVisitadas.Expires = DateTime.Now.AddDays(0.5);
+                posadasVisitadas["PosadasVisitadas"] = posada.Id.ToString();
+                Request.Cookies.Add(posadasVisitadas);
+                
+            }
+            HttpContext.Response.Cookies.Remove("PosadasVisitadas");
+            HttpContext.Response.SetCookie(posadasVisitadas);
+            posada.Visitas++;
+            unitOfWork.PosadaRepository.Update(posada);
+            unitOfWork.Save();
+            
         }
 
     }

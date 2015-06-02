@@ -49,6 +49,9 @@ namespace Posadas.Domain.Entities
         [StringLength(1000)]
          public string Misc { get; set; }
 
+        public int Visitas { get; set; }
+
+
     }
 }
 
