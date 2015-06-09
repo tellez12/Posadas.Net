@@ -51,6 +51,10 @@ namespace Posadas.Domain.Entities
 
         public int Visitas { get; set; }
 
+        public decimal Latitud { get; set; }
+
+        public decimal Longitud { get; set; }
+
 
     }
 }

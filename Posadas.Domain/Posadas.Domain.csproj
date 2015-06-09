@@ -147,6 +147,14 @@
     <Compile Include="Migrations\201506021146409_AddVisitasToPosadas.Designer.cs">
       <DependentUpon>201506021146409_AddVisitasToPosadas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506071227262_AddLatitudLogitudToPosadas.cs" />
+    <Compile Include="Migrations\201506071227262_AddLatitudLogitudToPosadas.Designer.cs">
+      <DependentUpon>201506071227262_AddLatitudLogitudToPosadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506090653259_Uknown.cs" />
+    <Compile Include="Migrations\201506090653259_Uknown.Designer.cs">
+      <DependentUpon>201506090653259_Uknown.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UOW\EFUnitOfWork.cs" />
@@ -201,6 +209,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506021146409_AddVisitasToPosadas.resx">
       <DependentUpon>201506021146409_AddVisitasToPosadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506071227262_AddLatitudLogitudToPosadas.resx">
+      <DependentUpon>201506071227262_AddLatitudLogitudToPosadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506090653259_Uknown.resx">
+      <DependentUpon>201506090653259_Uknown.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

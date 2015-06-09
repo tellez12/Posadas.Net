@@ -32,7 +32,9 @@ namespace Posadas.WebUI
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/posada").Include(
-                       "~/Scripts/app/posada.js"));
+                 //"~/Scripts/googleMapsApi.js",
+                "~/Scripts/locationpicker.jquery.js",
+                "~/Scripts/app/posada.js"));
 
 
         }

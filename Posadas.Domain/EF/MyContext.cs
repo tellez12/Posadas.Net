@@ -70,6 +70,13 @@ namespace Posadas.Domain.EF
         {
             return new MyContext();
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Posada>()
+                .Property(a => a.Latitud).HasPrecision(18, 9);
+            modelBuilder.Entity<Posada>().Property(a => a.Longitud).HasPrecision(18, 9);
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

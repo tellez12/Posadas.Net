@@ -124,14 +124,15 @@
                     <ul>
                         @foreach (CaracteristicasPosadas caracteristica in @Model.Caracteristicas)
                         {
-                            <li class="col-md-3">
-
-                                @caracteristica.Caracteristica.Nombre
-
+                            <li class="col-md-4">
                                 @if (caracteristica.Caracteristica.Imagen != "")
                                 {
-                                    <img src="~/Caracteristicas/@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica"/>
+                                    <img src="~/Caracteristicas/@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica" />
                                 }
+                                
+                                @caracteristica.Caracteristica.Nombre
+
+                              
                             </li>
                         }
                     </ul>
@@ -170,7 +171,20 @@
     </div>
 
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mapa</h3>
+        </div>
+        <div class="panel-body">
 
+          
+
+            
+            <div id="map-canvas" style="height: 400px;">
+
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -182,19 +196,39 @@
 </p>
 @section scripts {
     @Scripts.Render("~/bundles/owlCarousel");
+   
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
+     
     <script type="text/javascript">
-        $(document).ready(function () {
-        
-            $(".owl-carousel").owlCarousel({
-                items: 1,
-                
-                center:true,
-                lazyLoad: true,
-                navigation: true,
-                navText: ["pre3v", "n3ext"]
-               
-            });
+    $(document).ready(function () {
+
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+
+            center:true,
+            lazyLoad: true,
+            navigation: true,
+            navText: ["pre3v", "n3ext"]
+
         });
+    });
+
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(@Model.Latitud, @Model.Longitud);
+            var mapOptions = {
+                zoom: 15,
+                center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 }

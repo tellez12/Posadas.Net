@@ -27,6 +27,26 @@ $(document).ready(function () {
       
         readURL(this);
     });
+
+   $("#divMap").locationpicker({
+       location: { latitude: 10.353058080131083, longitude: -66.79369258880615 },
+        radius: 0,
+        inputBinding: {
+            latitudeInput: $("#Latitud"),
+            longitudeInput: $("#Longitud"),
+            //radiusInput: $("#us2-radius"),
+            locationNameInput: $("#us2-address")
+        },
+       enableAutocomplete: true,
+       //enableReverseGeocode: true,
+       zoom: 10
+   });
+
+    $("#btnSearch").click( function (){
+        $("#us2-address").val($("#mapSearchTxt").val());
+});
+
+
 });
 
 function readURL(input) {
@@ -48,15 +68,15 @@ function updateLugar(estadoId) {
     $.getJSON(uri + estadoId)
         .done(function (data) {
             // On success, 'data' contains a list of products.
-            $('#LugarId').removeAttr("disabled").find('option').remove();
-            $('#LugarId').append('<option value="0">Seleccione un lugar</option>');
+            $("#LugarId").removeAttr("disabled").find("option").remove();
+            $("#LugarId").append("<option value=\"0\">Seleccione un lugar</option>");
 
             $.each(data, function (key, item) {
                 // Add a list item for the product.
 
-                $('#LugarId').append('<option value="' + item.Id + '">' + item.Nombre + '</option>');
+                $("#LugarId").append("<option value=\"" + item.Id + "\">" + item.Nombre + "</option>");
 
             });
-            $('#LugarId').append('<option value="-1"> otro </option>');
+            $("#LugarId").append("<option value=\"-1\"> otro </option>");
         });
 }

@@ -87,6 +87,7 @@ namespace Posadas.WebUI.Controllers
                 return HttpNotFound();
             }
             var posadaViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
+            
             SetViewBag(posada);
             return View(posadaViewModel);
         }
@@ -305,6 +306,8 @@ namespace Posadas.WebUI.Controllers
 
         public void SetVisitedCookie(Posada posada)
         {
+            if (posada == null)
+                return;
             var posadasVisitadas = ControllerContext.HttpContext.Request.Cookies.Get("posadasVisitadas");
             if (posadasVisitadas != null && posadasVisitadas["PosadasVisitadas"]!=null)
             {
