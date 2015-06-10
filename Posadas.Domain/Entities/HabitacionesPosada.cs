@@ -10,11 +10,10 @@ namespace Posadas.Domain.Entities
     public class HabitacionesPosada:BaseEntity
     {
 
-        public int TipoHabitacionId { get; set; }
+        public string TipoHabitacion { get; set; }
+        public string PrecioHabitacion { get; set; }
 
-        [ForeignKey("TipoHabitacionId")]
-        public TipoHabitacion Tipo { get; set; }
-        
+        public int MaximoPersonas { get; set; }
         public int PosadaId { get; set; }
 
         [ForeignKey("PosadaId")]

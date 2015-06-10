@@ -38,3 +38,10 @@ textarea {
     height: 90%;
     display: none;
 }
+.divHabitaciones {
+    border: 1px rgb(89, 89, 89) dashed;
+
+padding: 0px;
+
+margin: 20px;
+}

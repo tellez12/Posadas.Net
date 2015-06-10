@@ -79,7 +79,7 @@ namespace Posadas.WebUI.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            var posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones,Habitaciones.Tipo");
+            var posada = unitOfWork.PosadaRepository.GetById(id, "Estado,Habitaciones");
             SetVisitedCookie(posada);
             if (posada == null)
             {
@@ -100,7 +100,7 @@ namespace Posadas.WebUI.Controllers
         public ActionResult Create()
         {
             //ViewBag.Habitaciones = GetHabitacionesList();
-            var posada = new Posada { Habitaciones = GetHabitacionesList(), Caracteristicas = new List<CaracteristicasPosadas>() };
+            var posada = new Posada { Caracteristicas = new List<CaracteristicasPosadas>() };
             SetViewBag(posada);
             var posadasViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
             posadasViewModel.Estados = new SelectList(unitOfWork.EstadoRepository.Get(), "Id", "Nombre");
@@ -121,11 +121,7 @@ namespace Posadas.WebUI.Controllers
             ViewBag.selectedCaracteristicas = selectedCaracteristicas;
         }
 
-        private List<HabitacionesPosada> GetHabitacionesList()
-        {
-            var tipoHabitaciones = unitOfWork.TipoHabitacionRepository.Get();
-            return tipoHabitaciones.Select(tipoHabitacion => new HabitacionesPosada() { Tipo = tipoHabitacion, TipoHabitacionId = tipoHabitacion.Id }).ToList();
-        }
+     
 
         //
         // POST: /Posada/Create
@@ -154,12 +150,9 @@ namespace Posadas.WebUI.Controllers
                     posada.Misc = posadaViewModel.OtroLugar;
                 }
 
-
-
-
                 unitOfWork.PosadaRepository.Insert(posada);
                 unitOfWork.Save();
-                //Store this path somewhere else.
+                
                 var root = Server.MapPath(Constantes.PosadasBase + posada.Id + "/");
                 var fotosList = new List<FotosPosada>();
                 foreach (var item in posadaViewModel.FotosModels)
@@ -190,7 +183,7 @@ namespace Posadas.WebUI.Controllers
         public ActionResult Edit(int id = 0)
         {
 
-            Posada posada = unitOfWork.PosadaRepository.GetById(id, "Habitaciones,Habitaciones.Tipo");
+            Posada posada = unitOfWork.PosadaRepository.GetById(id, "Habitaciones");
 
             if (posada == null)
             {
@@ -334,5 +327,10 @@ namespace Posadas.WebUI.Controllers
             
         }
 
+        public ActionResult GetHabitacionesPartial(int index=0)
+        {
+            ViewBag.Index = index;
+            return PartialView("_HabitacionesPartial");
+        }
     }
 }

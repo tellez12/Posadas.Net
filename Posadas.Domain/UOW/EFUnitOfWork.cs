@@ -66,16 +66,7 @@ namespace Posadas.Domain.UOW
             }
         }
 
-        private GenericRepository<TipoHabitacion> tipoHabitacionRepository;
-
-        public GenericRepository<TipoHabitacion> TipoHabitacionRepository
-        {
-            get
-            {
-                return tipoHabitacionRepository ??
-                       (tipoHabitacionRepository = new GenericRepository<TipoHabitacion>(context));
-            }
-        }
+       
 
         private GenericRepository<Estado> estadoRepository;
 

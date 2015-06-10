@@ -19,7 +19,7 @@ namespace Posadas.Domain.UOW
 
        GenericRepository<TipoCaracteristica> TipoCaracteristicaRepository { get; }
 
-       GenericRepository<TipoHabitacion> TipoHabitacionRepository { get; }
+      
 
        GenericRepository<Estado> EstadoRepository { get; }
 

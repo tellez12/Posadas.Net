@@ -54,7 +54,7 @@ namespace Posadas.Domain.EF
 
         public DbSet<TipoCaracteristica> TipoCaracteristicas { get; set; }
 
-        public DbSet<TipoHabitacion> TipoHabitacions { get; set; }
+     
 
         public DbSet<HabitacionesPosada> HabitacionesPosadas { get; set; }
 

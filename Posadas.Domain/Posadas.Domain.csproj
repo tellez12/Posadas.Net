@@ -94,7 +94,6 @@
     <Compile Include="Entities\Lugar.cs" />
     <Compile Include="Entities\Posada.cs" />
     <Compile Include="Entities\TipoCaracteristica.cs" />
-    <Compile Include="Entities\TipoHabitacion.cs" />
     <Compile Include="Migrations\201501210932521_initial.cs" />
     <Compile Include="Migrations\201501210932521_initial.Designer.cs">
       <DependentUpon>201501210932521_initial.cs</DependentUpon>
@@ -154,6 +153,14 @@
     <Compile Include="Migrations\201506090653259_Uknown.cs" />
     <Compile Include="Migrations\201506090653259_Uknown.Designer.cs">
       <DependentUpon>201506090653259_Uknown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506090952302_ChangeHabitaciones.cs" />
+    <Compile Include="Migrations\201506090952302_ChangeHabitaciones.Designer.cs">
+      <DependentUpon>201506090952302_ChangeHabitaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101406135_AddMaximoPersonasToPosadas.cs" />
+    <Compile Include="Migrations\201506101406135_AddMaximoPersonasToPosadas.Designer.cs">
+      <DependentUpon>201506101406135_AddMaximoPersonasToPosadas.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +222,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506090653259_Uknown.resx">
       <DependentUpon>201506090653259_Uknown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506090952302_ChangeHabitaciones.resx">
+      <DependentUpon>201506090952302_ChangeHabitaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101406135_AddMaximoPersonasToPosadas.resx">
+      <DependentUpon>201506101406135_AddMaximoPersonasToPosadas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -201,7 +201,6 @@
     <Compile Include="Areas\Admin\Controllers\LugarController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoCaracteristicasController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TipoHabitacionesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -243,11 +242,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\TipoHabitaciones\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\TipoHabitaciones\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\TipoHabitaciones\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\TipoHabitaciones\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\TipoHabitaciones\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TipoCaracteristicas\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TipoCaracteristicas\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TipoCaracteristicas\Details.cshtml" />
@@ -339,6 +333,7 @@
     <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
     <Content Include="Views\Shared\ConfirmarEmail.cshtml" />
     <Content Include="Views\Posadas\Comparacion.cshtml" />
+    <Content Include="Views\Posadas\_HabitacionesPartial.cshtml" />
     <None Include="Web.Backload.Default.config" />
   </ItemGroup>
   <ItemGroup>
