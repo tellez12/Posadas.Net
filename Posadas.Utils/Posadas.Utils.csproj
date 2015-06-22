@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudinaryDotNet">
+      <HintPath>..\packages\CloudinaryDotNet.1.0.22\lib\net40\CloudinaryDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="mailgun_csharp, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\mailgun_csharp.0.3.0.0\lib\net45\mailgun_csharp.dll</HintPath>
@@ -60,11 +63,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CloudinaryService.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="MailgunMessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendGridEmailService.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="UploadResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

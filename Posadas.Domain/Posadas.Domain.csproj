@@ -92,6 +92,7 @@
     <Compile Include="Entities\HabitacionesPosada.cs" />
     <Compile Include="Entities\IdentityModels.cs" />
     <Compile Include="Entities\Lugar.cs" />
+    <Compile Include="Entities\Plan.cs" />
     <Compile Include="Entities\Posada.cs" />
     <Compile Include="Entities\TipoCaracteristica.cs" />
     <Compile Include="Migrations\201501210932521_initial.cs" />

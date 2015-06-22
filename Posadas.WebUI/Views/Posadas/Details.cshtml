@@ -34,7 +34,7 @@
                 @foreach (var item in Model.Fotos)
                 {
 
-                    var src = String.Format("{0}/{1}/{2}", Constantes.PosadasBase, item.PosadaId, item.Ruta);
+                    var src = item.Ruta;
 
                     <img alt="@item.Alt" data-src="@Url.Content(src)" class="FotosDetallePosada lazyOwl"/>
                 }
@@ -127,7 +127,7 @@
                             <li class="col-md-4">
                                 @if (caracteristica.Caracteristica.Imagen != "")
                                 {
-                                    <img src="~/Caracteristicas/@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica" />
+                                    <img src="@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica" />
                                 }
                                 
                                 @caracteristica.Caracteristica.Nombre

@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Posadas.Domain.Entities;
 using Posadas.Domain.UOW;
+using Posadas.Utils;
 using Posadas.WebUI.ViewModels;
 using Posadas.WebUI.Utils;
 
@@ -68,12 +69,15 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
 			{
                 if (imageUpload != null)
                 {
-                    string filename = System.IO.Path.GetFileName(imageUpload.FileName);
-                    caracteristica.Imagen = caracteristica.Nombre + "-" + filename;
-                    //Store this path somewhere else.
-                    var root = Server.MapPath(Constantes.CaracteristicasBase);
-                    Directory.CreateDirectory(root);
-                    imageUpload.SaveAs(root + caracteristica.Imagen);
+                    string filename = caracteristica.Nombre + "-" +System.IO.Path.GetFileName(imageUpload.FileName);
+                    var uploadResult =CloudinaryService.UploadFile(filename, imageUpload.InputStream,"Caracteristicas","Caracteristicas");
+                    caracteristica.Imagen = uploadResult.Url;
+                    caracteristica.ImagenPublicId = uploadResult.PublicId;
+                    //caracteristica.Imagen = filename;
+                    //////Store this path somewhere else.
+                    //var root = Server.MapPath(Constantes.CaracteristicasBase);
+                    //Directory.CreateDirectory(root);
+                    //imageUpload.SaveAs(root + caracteristica.Imagen);
                 }
 
 				unitOfWork.CaracteristicaRepository.Insert(caracteristica);

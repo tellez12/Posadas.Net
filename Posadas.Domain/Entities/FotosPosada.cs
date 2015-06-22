@@ -10,6 +10,8 @@ namespace Posadas.Domain.Entities
     public class FotosPosada : BaseEntity
     {
         public string Ruta { get; set; }
+
+        public string ImagenPublicId { get; set; }
         public string Alt { get; set; }
 
 

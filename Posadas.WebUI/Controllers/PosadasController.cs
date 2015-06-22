@@ -157,17 +157,25 @@ namespace Posadas.WebUI.Controllers
                 var fotosList = new List<FotosPosada>();
                 foreach (var item in posadaViewModel.FotosModels)
                 {
-                    if (item.FileBase != null)
+                    if (item.FileBase == null) continue;
+                    string ext = Path.GetExtension(item.FileBase.FileName);
+                    string filename = "Posada-" + posada.Id + "-" + Guid.NewGuid() + ext;
+
+                    var uploadResult = CloudinaryService.UploadFile(filename, item.FileBase.InputStream, "Posada-" + posada.Id, "FotosPosadas");
+
+
+                    var fotoPosada = new FotosPosada
                     {
-                        string ext = Path.GetExtension(item.FileBase.FileName);
-                        var fotoPosada = new FotosPosada();
-                        fotoPosada.Alt = item.Alt;
-                        fotoPosada.PosadaId = posada.Id;
-                        fotoPosada.Ruta = Guid.NewGuid() + ext;
-                        Directory.CreateDirectory(root);
-                        item.FileBase.SaveAs(root + fotoPosada.Ruta);
-                        fotosList.Add(fotoPosada);
-                    }
+                        Alt = item.Alt,
+                        PosadaId = posada.Id,
+                        Ruta = uploadResult.Url,
+                        ImagenPublicId = uploadResult.PublicId
+                    };
+                    //fotoPosada.Ruta = Guid.NewGuid() + ext;
+                    //Directory.CreateDirectory(root);
+                    //item.FileBase.SaveAs(root + fotoPosada.Ruta);
+                     
+                    fotosList.Add(fotoPosada);
                 }
                 unitOfWork.FotosPosadaRepository.Insert(fotosList);
                 unitOfWork.Save();
