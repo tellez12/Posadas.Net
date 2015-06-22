@@ -73,6 +73,7 @@ namespace Posadas.WebUI.Areas.Admin.Controllers
                     var uploadResult =CloudinaryService.UploadFile(filename, imageUpload.InputStream,"Caracteristicas","Caracteristicas");
                     caracteristica.Imagen = uploadResult.Url;
                     caracteristica.ImagenPublicId = uploadResult.PublicId;
+                    caracteristica.ImageServer = uploadResult.Server;
                     //caracteristica.Imagen = filename;
                     //////Store this path somewhere else.
                     //var root = Server.MapPath(Constantes.CaracteristicasBase);

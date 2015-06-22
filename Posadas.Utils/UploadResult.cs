@@ -16,16 +16,19 @@ namespace Posadas.Utils
 
         public string SecureUrl { get; set; }
 
+        public int Server { get; set; }
+
         public UploadResult()
         {
             
         }
-        public UploadResult(ImageUploadResult result)
+        public UploadResult(ImageUploadResult result,int server)
         {
             PublicId = result.PublicId;
             Url = result.Uri.AbsoluteUri;
             SecureUrl = result.SecureUri.AbsoluteUri;
             DeleteToken = result.DeleteToken;
+            Server = server;
         }
       
     }

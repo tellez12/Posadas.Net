@@ -1,6 +1,7 @@
 ﻿@using System.Activities.Statements
 @using Posadas.Domain.Entities
 @using System.Collections.Generic
+@using Posadas.Utils
 @using Posadas.WebUI.Utils
 @model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
@@ -129,9 +130,15 @@
 
                                         @caracteristica.Nombre
 
-                                        @if (caracteristica.Imagen != "")
+                                    
+
+                                        @if (!string.IsNullOrEmpty(caracteristica.ImagenPublicId ))
                                         {
-                                            <img src="@caracteristica.Imagen" alt="@caracteristica.Nombre" class="icono-Caracteristica" />
+                                            @Html.Raw(CloudinaryService.Servers[caracteristica.ImageServer].Api.UrlImgUp.BuildImageTag(
+                                    caracteristica.ImagenPublicId,
+                                       new CloudinaryDotNet.StringDictionary(caracteristica.Nombre, "class=icono-Caracteristica ")));
+
+                                            @*<img src="@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica"/>*@
                                         }
                                     </label>
                                 </li>

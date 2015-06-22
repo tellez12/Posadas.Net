@@ -163,6 +163,14 @@
     <Compile Include="Migrations\201506101406135_AddMaximoPersonasToPosadas.Designer.cs">
       <DependentUpon>201506101406135_AddMaximoPersonasToPosadas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506220345037_AddClientIdToImages.cs" />
+    <Compile Include="Migrations\201506220345037_AddClientIdToImages.Designer.cs">
+      <DependentUpon>201506220345037_AddClientIdToImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506220523529_AddImageServer.cs" />
+    <Compile Include="Migrations\201506220523529_AddImageServer.Designer.cs">
+      <DependentUpon>201506220523529_AddImageServer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UOW\EFUnitOfWork.cs" />
@@ -229,6 +237,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506101406135_AddMaximoPersonasToPosadas.resx">
       <DependentUpon>201506101406135_AddMaximoPersonasToPosadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506220345037_AddClientIdToImages.resx">
+      <DependentUpon>201506220345037_AddClientIdToImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506220523529_AddImageServer.resx">
+      <DependentUpon>201506220523529_AddImageServer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

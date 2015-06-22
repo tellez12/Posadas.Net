@@ -169,7 +169,8 @@ namespace Posadas.WebUI.Controllers
                         Alt = item.Alt,
                         PosadaId = posada.Id,
                         Ruta = uploadResult.Url,
-                        ImagenPublicId = uploadResult.PublicId
+                        ImagenPublicId = uploadResult.PublicId,
+                        ImageServer = uploadResult.Server
                     };
                     //fotoPosada.Ruta = Guid.NewGuid() + ext;
                     //Directory.CreateDirectory(root);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Posadas.Domain.Entities;
+using CloudinaryDotNet;
 
 namespace Posadas.WebUI.ViewModels.Posadas
 {
@@ -34,6 +35,8 @@ namespace Posadas.WebUI.ViewModels.Posadas
         public int Visitas { get; set; }
         public decimal Latitud { get; set; }
         public decimal Longitud { get; set; }
+
+        public CloudinaryDotNet.Cloudinary Cloudinary { get; set; }
 
     }
 }

@@ -1,6 +1,8 @@
 ﻿@model Posadas.WebUI.ViewModels.Posadas.PosadasViewModel
 
+@using System.Threading
 @using Posadas.Domain.Entities
+@using Posadas.Utils
 @using Posadas.WebUI.Utils;
 
 @{
@@ -34,9 +36,18 @@
                 @foreach (var item in Model.Fotos)
                 {
 
-                    var src = item.Ruta;
+                    if (!string.IsNullOrEmpty(item.ImagenPublicId))
+                    {
 
-                    <img alt="@item.Alt" data-src="@Url.Content(src)" class="FotosDetallePosada lazyOwl"/>
+                       @Html.Raw(CloudinaryService.Servers[item.ImageServer].Api.UrlImgUp.BuildImageTag(item.ImagenPublicId,
+                                  new CloudinaryDotNet.StringDictionary("alt=Sample Image", "class=FotosDetallePosada lazyOwl")));
+                    }
+                    else
+                    {
+                        <label>SIN IMAGEN EN LA NUBE</label>
+                    }
+
+
                 }
             </div>
         </dd>
@@ -125,14 +136,19 @@
                         @foreach (CaracteristicasPosadas caracteristica in @Model.Caracteristicas)
                         {
                             <li class="col-md-4">
-                                @if (caracteristica.Caracteristica.Imagen != "")
-                                {
-                                    <img src="@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica" />
-                                }
                                 
+                               @if (!string.IsNullOrEmpty(caracteristica.Caracteristica.ImagenPublicId))
+                               {
+                                    @Html.Raw(CloudinaryService.Servers[caracteristica.Caracteristica.ImageServer].Api.UrlImgUp.BuildImageTag(
+                                    caracteristica.Caracteristica.ImagenPublicId,
+                                  new CloudinaryDotNet.StringDictionary(caracteristica.Caracteristica.Nombre, "class=FotosDetallePosada lazyOwl")));
+                                    
+                                    @*<img src="@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica"/>*@
+                                }
+
                                 @caracteristica.Caracteristica.Nombre
 
-                              
+
                             </li>
                         }
                     </ul>

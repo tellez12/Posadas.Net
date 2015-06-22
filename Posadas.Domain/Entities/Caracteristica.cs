@@ -19,6 +19,8 @@ namespace Posadas.Domain.Entities
 
         public string ImagenPublicId { get; set; }
 
+        public int ImageServer { get; set; }
+
         
     }
 }

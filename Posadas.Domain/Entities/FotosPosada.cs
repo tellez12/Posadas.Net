@@ -22,6 +22,8 @@ namespace Posadas.Domain.Entities
 
         public int Order { get; set; }
 
+        public int ImageServer { get; set; }
+
 
     }
 }
