@@ -180,7 +180,7 @@ namespace Posadas.WebUI.Controllers
                 }
                 unitOfWork.FotosPosadaRepository.Insert(fotosList);
                 unitOfWork.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id=posada.Id});
             }
 
             return View(posadaViewModel);
