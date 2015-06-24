@@ -19,6 +19,9 @@ namespace Posadas.WebUI.ViewModels.Posadas
         [EmailAddress(ErrorMessage = "Direccion de Email Invalida")]
         public string Email { get; set; }
         public string Telefono { get; set; }
+        public string WebSite { get; set; }
+        public string Twitter { get; set; }
+        public string Facebook { get; set; }
         public bool Aprobado { get; set; }
         public virtual List<CaracteristicasPosadas> Caracteristicas { get; set; }
         public virtual List<HabitacionesPosada> Habitaciones { get; set; }

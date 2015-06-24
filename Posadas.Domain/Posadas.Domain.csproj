@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201506222030107_AddHabitacionesCompartidas.Designer.cs">
       <DependentUpon>201506222030107_AddHabitacionesCompartidas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506242146461_AddFAcebookToPosadas.cs" />
+    <Compile Include="Migrations\201506242146461_AddFAcebookToPosadas.Designer.cs">
+      <DependentUpon>201506242146461_AddFAcebookToPosadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UOW\EFUnitOfWork.cs" />
@@ -250,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506222030107_AddHabitacionesCompartidas.resx">
       <DependentUpon>201506222030107_AddHabitacionesCompartidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506242146461_AddFAcebookToPosadas.resx">
+      <DependentUpon>201506242146461_AddFAcebookToPosadas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

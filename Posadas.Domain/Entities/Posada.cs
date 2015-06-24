@@ -25,6 +25,8 @@ namespace Posadas.Domain.Entities
         public string WebSite { get; set; }
 
         public string Twitter  { get; set; }
+
+        public string Facebook { get; set; }
         public virtual List<CaracteristicasPosadas> Caracteristicas { get; set; }
 
         public virtual List<HabitacionesPosada> Habitaciones { get; set; }
