@@ -20,5 +20,8 @@ namespace Posadas.Domain.Entities
         public Posada Posada { get; set; }
         public int CantidadHabitaciones { get; set; }
 
+        public bool HabitacionCompartida { get; set; }
+
+
     }
 }
