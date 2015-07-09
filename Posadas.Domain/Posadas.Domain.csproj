@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201506242146461_AddFAcebookToPosadas.Designer.cs">
       <DependentUpon>201506242146461_AddFAcebookToPosadas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506262206439_ChangePrecioInPosada.cs" />
+    <Compile Include="Migrations\201506262206439_ChangePrecioInPosada.Designer.cs">
+      <DependentUpon>201506262206439_ChangePrecioInPosada.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UOW\EFUnitOfWork.cs" />
@@ -257,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506242146461_AddFAcebookToPosadas.resx">
       <DependentUpon>201506242146461_AddFAcebookToPosadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506262206439_ChangePrecioInPosada.resx">
+      <DependentUpon>201506262206439_ChangePrecioInPosada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

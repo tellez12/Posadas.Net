@@ -34,9 +34,17 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.PrecioHabitacion, htmlAttributes: new {@class = "control-label col-md-6"})
+        @Html.LabelFor(model => model.PrecioHabitacionMin, htmlAttributes: new {@class = "control-label col-md-6"})
         <div class="col-md-6">
-            <input type="text" name="@(prefix).PrecioHabitacion" id="@(prefix).TipoHabitacion" class="form-control"/>
+            <input type="text" name="@(prefix).PrecioHabitacionMin" id="@(prefix).TipoHabitacion" class="form-control" />
+            @*@Html.TextAreaFor(model => model.PrecioHabitacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecioHabitacion, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PrecioHabitacionMax, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-6">
+            <input type="text" name="@(prefix).PrecioHabitacionMax" id="@(prefix).TipoHabitacion" class="form-control" />
             @*@Html.TextAreaFor(model => model.PrecioHabitacion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PrecioHabitacion, "", new { @class = "text-danger" })*@
         </div>

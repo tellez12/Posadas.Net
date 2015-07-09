@@ -1,0 +1,68 @@
+﻿@using Posadas.Domain.Entities
+@using Posadas.Utils
+@model Posadas.WebUI.ViewModels.Posadas.PosadasSearchViewModel
+
+@using (Html.BeginForm("BusquedaAvanzada", "Posadas", FormMethod.Post, htmlAttributes: new { @class = "navbar-form",@id="frmBusqueda" }))
+{
+   @Html.EditorForModel()
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Caracteristicas</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+
+                <div>
+                    <ul>
+                        @foreach (Caracteristica caracteristica in Model.Caracteristicas)
+                        {
+                            <li>
+                                <label>
+                                 
+                                    <input type="checkbox" name="CaracteristicasId[]" value="@caracteristica.Id" />
+                                  
+
+                                    @caracteristica.Nombre
+
+
+
+                                    @if (!string.IsNullOrEmpty(caracteristica.ImagenPublicId))
+                                    {
+                                        @Html.Raw(CloudinaryService.Servers[caracteristica.ImageServer].Api.UrlImgUp.BuildImageTag(
+                                    caracteristica.ImagenPublicId,
+                                       new CloudinaryDotNet.StringDictionary(caracteristica.Nombre, "class=icono-Caracteristica ")));
+
+                                        @*<img src="@caracteristica.Caracteristica.Imagen" alt="@caracteristica.Caracteristica.Nombre" class="icono-Caracteristica"/>*@
+                                    }
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            <input type="button" value="Buscar" id="btnBuscarAvanzado" class="btn btn-default" />
+      
+  
+
+}
+
+
+    <script type="text/javascript"  language="javascript">
+        
+        $("#btnBuscarAvanzado").click(function (evt) {
+       
+            var form = $("#frmBusqueda").serialize();
+            $("#DivTarget").load("/Posadas/BusquedaAvanzada",
+            { model: form });
+            evt.preventDefault();
+        
+            return false;
+        });
+    </script>
+

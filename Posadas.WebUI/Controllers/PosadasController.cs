@@ -18,6 +18,7 @@ using System.IO;
 using Posadas.Utils;
 using Posadas.WebUI.Utils;
 
+
 namespace Posadas.WebUI.Controllers
 {
     public class PosadasController : Controller
@@ -36,29 +37,6 @@ namespace Posadas.WebUI.Controllers
         public ActionResult Index(int page = 1)
         {
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult Busqueda(string query="", int page = 0)
-        {
-
-            var pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
-            query = query.ToLowerInvariant();
-            ViewBag.pagingInfo = pagingInfo;
-            //Email.SendSimpleMessage("MyMessage");
-            IEnumerable<Posada> posadas = unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
-                .Where(p => 
-                    p.Nombre.ToLowerInvariant().Contains(query) ||
-                         (p.Estado!=null &&  p.Estado.Nombre.ToLowerInvariant().Contains(query) )||
-                          (p.Lugar!=null &&    p.Lugar.Nombre.ToLowerInvariant().Contains(query)))
-
-                .OrderBy(p => p.Id)
-                .Skip((page - 1)*pagingInfo.ItemsPerPage)
-                .Take(pagingInfo.ItemsPerPage);
-            return
-                View(posadas);
-
-
         }
 
         public ActionResult Listado(int page = 1)
@@ -87,7 +65,7 @@ namespace Posadas.WebUI.Controllers
                 return HttpNotFound();
             }
             var posadaViewModel = Mapper.Map<Posada, PosadasViewModel>(posada);
-            
+
             SetViewBag(posada);
             return View(posadaViewModel);
         }
@@ -121,7 +99,7 @@ namespace Posadas.WebUI.Controllers
             ViewBag.selectedCaracteristicas = selectedCaracteristicas;
         }
 
-     
+
 
         //
         // POST: /Posada/Create
@@ -152,7 +130,7 @@ namespace Posadas.WebUI.Controllers
 
                 unitOfWork.PosadaRepository.Insert(posada);
                 unitOfWork.Save();
-                
+
                 var root = Server.MapPath(Constantes.PosadasBase + posada.Id + "/");
                 var fotosList = new List<FotosPosada>();
                 foreach (var item in posadaViewModel.FotosModels)
@@ -175,12 +153,12 @@ namespace Posadas.WebUI.Controllers
                     //fotoPosada.Ruta = Guid.NewGuid() + ext;
                     //Directory.CreateDirectory(root);
                     //item.FileBase.SaveAs(root + fotoPosada.Ruta);
-                     
+
                     fotosList.Add(fotoPosada);
                 }
                 unitOfWork.FotosPosadaRepository.Insert(fotosList);
                 unitOfWork.Save();
-                return RedirectToAction("Details",new {id=posada.Id});
+                return RedirectToAction("Details", new { id = posada.Id });
             }
 
             return View(posadaViewModel);
@@ -311,14 +289,14 @@ namespace Posadas.WebUI.Controllers
             if (posada == null)
                 return;
             var posadasVisitadas = ControllerContext.HttpContext.Request.Cookies.Get("posadasVisitadas");
-            if (posadasVisitadas != null && posadasVisitadas["PosadasVisitadas"]!=null)
+            if (posadasVisitadas != null && posadasVisitadas["PosadasVisitadas"] != null)
             {
                 var ids = posadasVisitadas["PosadasVisitadas"].Split(',').ToList();
                 if (ids.Contains(posada.Id.ToString())) return;//
 
                 ids.Add(posada.Id.ToString());
-                posadasVisitadas["PosadasVisitadas"] = String.Join(",",ids);
-           
+                posadasVisitadas["PosadasVisitadas"] = String.Join(",", ids);
+
             }
             else
             {
@@ -326,20 +304,140 @@ namespace Posadas.WebUI.Controllers
                 posadasVisitadas.Expires = DateTime.Now.AddDays(0.5);
                 posadasVisitadas["PosadasVisitadas"] = posada.Id.ToString();
                 Request.Cookies.Add(posadasVisitadas);
-                
+
             }
             HttpContext.Response.Cookies.Remove("PosadasVisitadas");
             HttpContext.Response.SetCookie(posadasVisitadas);
             posada.Visitas++;
             unitOfWork.PosadaRepository.Update(posada);
             unitOfWork.Save();
-            
+
         }
 
-        public ActionResult GetHabitacionesPartial(int index=0)
+        public ActionResult GetHabitacionesPartial(int index = 0)
         {
             ViewBag.Index = index;
             return PartialView("_HabitacionesPartial");
+        }
+
+        public ActionResult GetAdvanceSearchPartial(string query = "")
+        {
+            var model = new PosadasSearchViewModel();
+            model.Estados = new SelectList(unitOfWork.EstadoRepository.Get(), "Id", "Nombre");
+            model.Caracteristicas = unitOfWork.CaracteristicaRepository.Get().ToList();
+            model.Query = query;
+
+            return PartialView("_SearchFormPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult BusquedaAvanzada(PosadasSearchViewModel model)
+        {
+
+            IEnumerable<Posada> posadas = unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar,Caracteristicas,Caracteristicas.Caracteristica,Habitaciones").OrderBy(p => p.Id);
+
+            List<Action> filters = new List<Action>();
+            if (!String.IsNullOrEmpty(model.Query))
+            {
+                filters.Add(delegate { FilterPosadasByQuery(model.Query, ref posadas); });
+                //FilterPosadasByQuery(model.Query,ref posadas);
+            }
+            if (model.PrecioMinimo != null || model.PrecioMaximo != null)
+            {
+                filters.Add(() => FilterPosadasByPrecio(model.PrecioMinimo, model.PrecioMaximo, ref posadas));
+            }
+            if (model.CapacidadMinima != null || model.CapacidadMaxima != null)
+            {
+                filters.Add(() => FilterPosadasByCantidadHuespedes(model.CapacidadMinima, model.CapacidadMaxima, ref posadas));
+            }
+            if (model.CaracteristicasId != null && model.CaracteristicasId.Any())
+            {
+                filters.Add(() => FilterByCaracteristicas(model.CaracteristicasId, ref posadas));
+            }
+
+            foreach (var action in filters)
+            {
+                action.Invoke();
+            }
+
+
+
+            return
+                View("_ResultPartial", posadas);
+        }
+        [HttpPost]
+        public ActionResult Busqueda(string query = "", int page = 0)
+        {
+
+            var pagingInfo = new PagingInfo(page, unitOfWork.PosadaRepository.Get().Count());
+            query = query.ToLowerInvariant();
+            ViewBag.pagingInfo = pagingInfo;
+            //Email.SendSimpleMessage("MyMessage");
+            IEnumerable<Posada> posadas = unitOfWork.PosadaRepository.Get(includeProperties: "Estado,Lugar")
+                .Where(p =>
+                    p.Nombre.ToLowerInvariant().Contains(query) ||
+                         (p.Estado != null && p.Estado.Nombre.ToLowerInvariant().Contains(query)) ||
+                          (p.Lugar != null && p.Lugar.Nombre.ToLowerInvariant().Contains(query)))
+
+                .OrderBy(p => p.Id)
+                .Skip((page - 1) * pagingInfo.ItemsPerPage)
+                .Take(pagingInfo.ItemsPerPage);
+            return
+                View(posadas);
+
+
+        }
+
+        private void FilterByCaracteristicas(List<int> caracteristicas, ref IEnumerable<Posada> posadas)
+        {
+        //    posadas = posadas.Where(p => p.Caracteristicas != null && !p.Caracteristicas.Select(c => c.Caracteristica.Id).Except(caracteristicas).Any());
+        //
+            foreach (var caracteristica in caracteristicas)
+            {
+                posadas = posadas.Where(p => p.Caracteristicas != null && p.Caracteristicas.Select(c=>c.CaracteristicaId).Contains(caracteristica));
+            }
+        
+        }
+
+        private void FilterPosadasByCantidadHuespedes(int? min, int? max, ref IEnumerable<Posada> posadas)
+        {
+
+            if (min != null)
+            {
+                posadas = posadas.Where(p => p.Habitaciones != null && p.Habitaciones.Any(h => h.MaximoPersonas >= min));
+
+            }
+            if (max != null)
+            {
+                posadas = posadas.Where(p => p.Habitaciones != null && p.Habitaciones.Any(h => h.MaximoPersonas <= max));
+
+            }
+
+
+        }
+
+        private void FilterPosadasByPrecio(int? min, int? max, ref IEnumerable<Posada> posadas)
+        {
+            if (min != null)
+            {
+                posadas = posadas.Where(p => p.Habitaciones != null && p.Habitaciones.Any(h => h.PrecioHabitacionMin >= min));
+
+            }
+            if (max != null)
+            {
+                posadas = posadas.Where(p => p.Habitaciones != null && p.Habitaciones.Any(h => h.PrecioHabitacionMax <= max));
+
+            }
+
+        }
+
+        private static void FilterPosadasByQuery(string query, ref IEnumerable<Posada> posadas)
+        {
+            posadas = posadas.Where(p =>
+                p.Nombre.ToLowerInvariant().Contains(query) ||
+                (p.Estado != null && p.Estado.Nombre.ToLowerInvariant().Contains(query)) ||
+                (p.Lugar != null && p.Lugar.Nombre.ToLowerInvariant().Contains(query)));
+
         }
     }
 }

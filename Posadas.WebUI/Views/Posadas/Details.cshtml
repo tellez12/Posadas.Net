@@ -203,10 +203,16 @@
                                 @Html.DisplayFor(m => m.Habitaciones[i].MaximoPersonas)
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Habitaciones[i].PrecioHabitacion):
-                                
-                                    @Html.DisplayFor(m => m.Habitaciones[i].PrecioHabitacion)
-                                
+                                @Html.LabelFor(m => m.Habitaciones[i].PrecioHabitacionMin):
+
+                                @Html.DisplayFor(m => m.Habitaciones[i].PrecioHabitacionMin)
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Habitaciones[i].PrecioHabitacionMax):
+
+                                @Html.DisplayFor(m => m.Habitaciones[i].PrecioHabitacionMax)
+
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Habitaciones[i].HabitacionCompartida):

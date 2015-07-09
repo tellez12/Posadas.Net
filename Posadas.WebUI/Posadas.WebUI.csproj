@@ -225,6 +225,7 @@
     <Compile Include="Utils\CookieManager.cs" />
     <Compile Include="ViewModels\PagingInfo.cs" />
     <Compile Include="ViewModels\Posadas\FotoPosadaViewModel.cs" />
+    <Compile Include="ViewModels\Posadas\PosadasSearchViewModel.cs" />
     <Compile Include="ViewModels\Posadas\PosadasViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +233,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ui-slider-pips.css" />
     <Content Include="Content\OwlCarousel\AjaxLoader.gif" />
     <Content Include="Content\OwlCarousel\grabbing.png" />
     <Content Include="Content\OwlCarousel\owl.carousel.css" />
@@ -277,6 +279,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-slider-pips.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -341,6 +344,8 @@
     <Content Include="Views\Shared\ConfirmarEmail.cshtml" />
     <Content Include="Views\Posadas\Comparacion.cshtml" />
     <Content Include="Views\Posadas\_HabitacionesPartial.cshtml" />
+    <Content Include="Views\Shared\_SearchFormPartial.cshtml" />
+    <Content Include="Views\Shared\_ResultPartial.cshtml" />
     <None Include="Web.Backload.Default.config" />
   </ItemGroup>
   <ItemGroup>
